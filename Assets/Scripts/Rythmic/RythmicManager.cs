@@ -22,6 +22,10 @@ public class RythmicManager : MonoBehaviour {
 		fComboTimer += Time.deltaTime;
 
 		CheckEndGame ();
+
+		if (currentCombo == null)
+			return;
+
 		PoolNextNoteToShow ();
 		CleanUnplayedNotes ();
 	}
