@@ -1,0 +1,12 @@
+E:\UJam\UJam\Temp\bin\Debug\Assembly-CSharp.dll
+E:\UJam\UJam\Temp\bin\Debug\Assembly-CSharp.pdb
+E:\UJam\UJam\Temp\bin\Debug\UnityEditor.dll
+E:\UJam\UJam\Temp\bin\Debug\UnityEngine.dll
+E:\UJam\UJam\Temp\bin\Debug\UnityEngine.UI.dll
+E:\UJam\UJam\Temp\bin\Debug\Mono.Cecil.dll
+E:\UJam\UJam\Temp\bin\Debug\nunit.framework.dll
+E:\UJam\UJam\Temp\bin\Debug\Unity.DataContract.dll
+E:\UJam\UJam\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+E:\UJam\UJam\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+E:\UJam\UJam\obj\Debug\Assembly-CSharp.dll
+E:\UJam\UJam\obj\Debug\Assembly-CSharp.pdb
