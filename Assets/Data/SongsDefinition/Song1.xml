@@ -1,4 +1,15 @@
 <?xml version="1.0"?>
+<!--
+Notes time :
+
+"Whole"			: 1
+"Half"			: 1/2
+"Quarter"		: 1/4
+"Eighth"		: 1/8
+"Sixteenth"		: 1/16
+"ThirtySecond"	: 1/32
+"SixtyFourth"	: 1/64
+-->
 <Song>
 	<Section startTime="0" endTime="60">
 		<Combo BPM="110">
