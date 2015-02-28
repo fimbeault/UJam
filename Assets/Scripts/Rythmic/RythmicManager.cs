@@ -4,10 +4,16 @@ using System.Collections.Generic;
 
 public class RythmicManager : MonoBehaviour {
 
+	const float kStepFrequency = 1.0f / 64.0f;
+
 	Combo currentCombo = null;
 	List<Note> visibleNotes = new List<Note>();
 
+	float fSongTimer = 0.0f;
+	float fStepTimer = 0.0f;
 	float fComboTimer = 0.0f;
+
+	float fCurrentUpdateFrequency = 0.0f;
 
 	float kfNoteAppearDelay = 0.4f;
 
@@ -15,27 +21,93 @@ public class RythmicManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		GetNextCombo ();
+	}
+
+	public void ProcessInput(string _sInput)
+	{
+		Note processedNote = null;
+
+		foreach (Note note in visibleNotes)
+		{
+			if (note.sType.Equals(_sInput))
+			{
+				processedNote = note;
+				break;
+			}
+		}
+
+		if (processedNote == null)
+		{
+			// Miss you noob!
+			return;
+		}
+
+		float noteDelta = Mathf.Abs(processedNote.fTime - fComboTimer);
+		float missRatio = noteDelta / kfNoteAppearDelay;
+
+		if (missRatio < 0.3f)
+		{
+			// Wow such awesome!
+		}
+		else
+		{
+			// So fail
+		}
+
+		// Dissapear
+		visibleNotes.Remove (processedNote);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+	{
 		if (bGameEnded)
 			return;
 
-		fComboTimer += Time.deltaTime;
+		fSongTimer += Time.deltaTime;
 
-		CheckEndGame ();
-
-		if (currentCombo == null)
+		// Get Next Combo
+		if (currentCombo.notes.Count == 0)
+		{
+			GetNextCombo ();
 			return;
+		}
 
-		PoolNextNoteToShow ();
-		CleanUnplayedNotes ();
+		// Update Current Combo
+		fStepTimer += Time.deltaTime;
+		if (fStepTimer >= fCurrentUpdateFrequency)
+		{
+			fComboTimer += fStepTimer;
+
+			SongStep();
+			fStepTimer = 0.0f;
+		}
 	}
 
-	void CheckEndGame()
+	void SongStep()
+	{
+		// Make notes appear
+		while ((currentCombo.notes.Count > 0) &&
+		       (fComboTimer >= currentCombo.notes[0].fTime - kfNoteAppearDelay))
+		{
+			// Appear
+
+			visibleNotes.Add (currentCombo.notes[0]);
+			currentCombo.notes.RemoveAt (0);
+		}
+
+		// Check missed notes
+		while ((visibleNotes.Count > 0) &&
+		       (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay))
+		{
+			// Disapear
+
+			visibleNotes.RemoveAt(0);
+		}
+	}
+
+	void GetNextCombo()
 	{
 		if (currentCombo == null)
 		{
@@ -48,34 +120,9 @@ public class RythmicManager : MonoBehaviour {
 				return;
 			}
 		}
-	}
 
-	void PoolNextNoteToShow()
-	{
-		if (currentCombo.notes.Count == 0) {
-			currentCombo = null;
-			return;
-		}
-
-		Note nextNote = currentCombo.notes [0];
-
-		float fNextNoteTime = nextNote.fTime - fComboTimer;
-		if (fNextNoteTime <= kfNoteAppearDelay)
-		{
-			// Appear
-
-			visibleNotes.Add (nextNote);
-			currentCombo.notes.RemoveAt (0);
-		}
-	}
-
-	void CleanUnplayedNotes()
-	{
-		while ((visibleNotes.Count > 0) && (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay))
-		{
-			// Disapear
-
-			visibleNotes.RemoveAt(0);
-		}
+		fStepTimer = 0.0f;
+		fComboTimer = 0.0f;
+		fCurrentUpdateFrequency = (60 / currentCombo.fBPM) * kStepFrequency;
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Song>
-	<Section startTime="0" endTime="60" BPM="110">
-		<Combo>
+	<Section startTime="0" endTime="60">
+		<Combo BPM="110">
 			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
@@ -9,7 +9,7 @@
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
 		</Combo>
-		<Combo>
+		<Combo BPM="110">
 			<Note type="B" time="Quarter"/>
 			<Note type="B" time="Eighth"/>
 			<Note type="A" time="Eighth"/>
