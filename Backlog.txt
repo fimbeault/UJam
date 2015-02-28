@@ -1,0 +1,8 @@
+Gestion de switch des players + anticipation sur début de combos
+Gestion de start des combos pour que ca fit avec la tounne				--Fred
+Tweaker le UI										--Nic
+Intégrer la tounne
+Intégrer les personnages
+Avoir une notion de vies
+Faire la barre de crowd cheering au centre
+Faire le "face off"

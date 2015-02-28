@@ -62,23 +62,6 @@ public class VisualManager : MonoBehaviour
             rendererTransform.position += velocity;
         }
     }
-	/*
-    public void OnAxisChanged(EPlayerId aPlayerId, EAxisData aAxisData, bool aIsAxisActive)
-    {
-        Note note = new Note();
-        note.sType = aAxisData.AxisName;
-        note.fTime = 3.0f;
-
-        SpawnNote(note, aPlayerId);
-
-        StartCoroutine(DestroyWithDelay(note));
-    }
-
-    private IEnumerator DestroyWithDelay(Note aNote)
-    {
-        yield return new WaitForSeconds(4f);
-        DestroyNote(aNote);
-    }*/
 
     public void SpawnNote(Note aNote, EPlayerId aPlayerId, float fLifetime)
     {
