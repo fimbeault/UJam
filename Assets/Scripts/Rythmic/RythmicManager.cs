@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class RythmicManager : MonoBehaviour {
 
 	const float kStepFrequency = 1.0f / 64.0f;
+	const float kfPerfectTiming = 0.1f;
+	const float kfGoodTiming = 0.2f;
+	const float kfBadTiming = 0.4f;
 
 	public VisualManager visualManager;
 
@@ -48,9 +51,17 @@ public class RythmicManager : MonoBehaviour {
 		float noteDelta = Mathf.Abs(processedNote.fTime - fComboTimer);
 		float missRatio = noteDelta / kfNoteAppearDelay;
 
-		if (missRatio < 0.3f)
+		if (missRatio <= kfPerfectTiming)
 		{
-			// Wow such awesome!
+			// Wow such awesomely perfect!
+		}
+		else if (missRatio <= kfGoodTiming)
+		{
+			// Much good
+		}
+		else if (missRatio <= kfBadTiming)
+		{
+			// Very lame
 		}
 		else
 		{
