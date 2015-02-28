@@ -11,6 +11,8 @@ public class RythmicManager : MonoBehaviour {
 
 	float kfNoteAppearDelay = 0.4f;
 
+	bool bGameEnded = false;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,6 +20,9 @@ public class RythmicManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (bGameEnded)
+			return;
 
 		fComboTimer += Time.deltaTime;
 
@@ -39,6 +44,7 @@ public class RythmicManager : MonoBehaviour {
 			if (currentCombo == null)
 			{
 				// End the game
+				bGameEnded = true;
 				return;
 			}
 		}
@@ -65,7 +71,7 @@ public class RythmicManager : MonoBehaviour {
 
 	void CleanUnplayedNotes()
 	{
-		while (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay)
+		while ((visibleNotes.Count > 0) && (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay))
 		{
 			// Disapear
 
