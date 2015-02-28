@@ -54,9 +54,9 @@
      <Compile Include="Assets\Scripts\Rythmic\RythmicManager.cs" />
      <Compile Include="Assets\Scripts\Rythmic\SongManager.cs" />
      <Compile Include="Assets\Scripts\Rythmic\SongParser.cs" />
-     <Compile Include="Assets\Scripts\Tests\ButtonRenderer.cs" />
      <Compile Include="Assets\Scripts\Tests\InputResult.cs" />
      <Compile Include="Assets\Scripts\Tests\RythmicTests.cs" />
+     <Compile Include="Assets\Scripts\Visual\ButtonRenderer.cs" />
      <Compile Include="Assets\Scripts\Visual\VisualManager.cs" />
      <None Include="Assets\Data\SongsDefinition\Song1.xml" />
  <Reference Include="UnityEngine.UI">

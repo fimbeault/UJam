@@ -7,7 +7,6 @@ public class UJamInputManager : MonoBehaviour
     public VisualManager _VisualManager;
     private Dictionary<string, bool> mActiveAxisCache;
 
-	// Use this for initialization
 	void Start ()
     {
         mActiveAxisCache = new Dictionary<string, bool>();
@@ -24,10 +23,9 @@ public class UJamInputManager : MonoBehaviour
         }
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
-        UpdatePressedCache();
+        //UpdatePressedCache();
 	}
 
     private void UpdatePressedCache()
