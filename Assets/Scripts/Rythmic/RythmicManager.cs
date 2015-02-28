@@ -71,7 +71,7 @@ public class RythmicManager : MonoBehaviour {
 		fSongTimer += Time.deltaTime;
 
 		// Get Next Combo
-		if (currentCombo.notes.Count == 0)
+		if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
 		{
 			GetNextCombo ();
 			return;
@@ -117,16 +117,13 @@ public class RythmicManager : MonoBehaviour {
 
 	void GetNextCombo()
 	{
+		currentCombo = SongManager.GetNextCombo();
+		
 		if (currentCombo == null)
 		{
-			currentCombo = SongManager.GetNextCombo();
-			
-			if (currentCombo == null)
-			{
-				// End the game
-				bGameEnded = true;
-				return;
-			}
+			// End the game
+			bGameEnded = true;
+			return;
 		}
 
 		fStepTimer = 0.0f;
