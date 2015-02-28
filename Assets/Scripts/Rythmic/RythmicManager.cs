@@ -58,6 +58,7 @@ public class RythmicManager : MonoBehaviour {
 		}
 
 		// Dissapear
+		visualManager.DestroyNote(visibleNotes[0]);
 		visibleNotes.Remove (processedNote);
 	}
 	
