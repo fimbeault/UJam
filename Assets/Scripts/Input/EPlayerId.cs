@@ -11,9 +11,7 @@ public class EPlayerId
     public static EPlayerId PLAYER_FOUR = new EPlayerId("_4");
 
     private string mInputSuffix;
-    private int mId;
-
-    public string InputSuffix
+    private int mId;    public string InputSuffix
     {
         get
         {

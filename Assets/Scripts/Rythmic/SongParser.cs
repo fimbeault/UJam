@@ -21,13 +21,21 @@ public class SongParser {
 			foreach (XmlNode xmlCombo in xmlCombos)
 			{
 				Combo combo = new Combo();
+				float.TryParse(xmlCombo.Attributes.GetNamedItem("BPM").Value, out combo.fBPM);
 
 				XmlNodeList xmlNotes = xmlCombo.SelectNodes("Note");
+
+				float fNextNoteTime = 0.0f;
+				float fWhole = combo.fBPM / 240.0f;
 
 				foreach (XmlNode xmlNote in xmlNotes)
 				{
 					Note note = new Note();
-					float.TryParse(xmlNote.Attributes.GetNamedItem("time").Value, out note.fTime);
+					note.fTime = fNextNoteTime;
+					note.sType = xmlNote.Attributes.GetNamedItem("type").Value;
+
+					Note.NoteTime type = ParseNoteType(xmlNote.Attributes.GetNamedItem("time").Value);
+					fNextNoteTime += 1.0f / (fWhole * (int)type);
 
 					combo.notes.Add(note);
 				}
@@ -38,5 +46,42 @@ public class SongParser {
 		}
 
 		return comboList;
+	}
+
+	static private Note.NoteTime ParseNoteType(string _type)
+	{
+		switch (_type)
+		{
+			case "Whole":
+			{
+				return Note.NoteTime.NoteType_Whole;
+			}
+			case "Half":
+			{
+				return Note.NoteTime.NoteType_Half;
+			}
+			case "Quarter":
+			{
+				return Note.NoteTime.NoteType_Quarter;
+			}
+			case "Eighth":
+			{
+				return Note.NoteTime.NoteType_Eighth;
+			}
+			case "Sixteenth":
+			{
+				return Note.NoteTime.NoteType_Sixteenth;
+			}
+			case "ThirtySecond":
+			{
+				return Note.NoteTime.NoteType_ThirtySecond;
+			}
+			case "SixtyFourth":
+			{
+				return Note.NoteTime.NoteType_SixtyFourth;
+			}
+		}
+
+		return Note.NoteTime.NoteType_Quarter;
 	}
 }

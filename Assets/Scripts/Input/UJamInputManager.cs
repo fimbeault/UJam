@@ -4,23 +4,11 @@ using System.Collections.Generic;
 
 public class UJamInputManager : MonoBehaviour
 {
-    public VisualManager _VisualManager;
-    private Dictionary<string, bool> mActiveAxisCache;
+    public List<ButtonRenderer> _ButtonRendererList;
 
 	void Start ()
     {
-        mActiveAxisCache = new Dictionary<string, bool>();
-
-        List<EAxisData> axisDataList = EAxisData.GetList();
-        List<EPlayerId> playerIdList = EPlayerId.GetList();
-
-        foreach (EPlayerId playerId in playerIdList)
-        {
-            foreach (EAxisData axisData in axisDataList)
-            {
-                mActiveAxisCache[axisData.GetFullAxisName(playerId)] = false;
-            }
-        }
+	
 	}
 	
 	void Update ()
@@ -33,41 +21,46 @@ public class UJamInputManager : MonoBehaviour
         List<EAxisData> axisDataList = EAxisData.GetList();
         List<EPlayerId> playerIdList = EPlayerId.GetList();
 
-        foreach (EPlayerId playerId in playerIdList)
+        for (int i = 0; i < _ButtonRendererList.Count; i++)
         {
+            ButtonRenderer buttonRenderer = _ButtonRendererList[i];
+        
+            bool isInputEntered = false;
+
             foreach (EAxisData axisData in axisDataList)
             {
-                string axisFullName = axisData.GetFullAxisName(playerId);
-                bool isAxisActive = IsAxisActive(axisData, playerId);
-                bool cachedAxisActive = mActiveAxisCache[axisFullName];
-
-                if (cachedAxisActive != isAxisActive)
+                if (IsAxisActive(playerIdList[i], axisData))
                 {
-                    DispatchAxisChanged(axisData, playerId, isAxisActive);
-                    mActiveAxisCache[axisFullName] = isAxisActive;
+                    isInputEntered = true;
+                    buttonRenderer.SetSpriteFrame(axisData);
+                    break;
                 }
             }
+
+            if (buttonRenderer.gameObject.activeInHierarchy != isInputEntered)
+            {
+                buttonRenderer.gameObject.SetActive(isInputEntered);
+            }
         }
-    }
+	}
 
-    private void DispatchAxisChanged(EAxisData aAxisData, EPlayerId aPlayerId, bool aIsAxisActive)
+    private bool IsAxisActive(EPlayerId aPlayerId, EAxisData aAxisData)
     {
-        _VisualManager.OnAxisChanged(aPlayerId, aAxisData, aIsAxisActive);
-    }
+        //Debug.Log("IsKeyActive : " + aAxisData.ToString() + ", suffix : " + aPlayerId.InputSuffix);
 
-    private bool IsAxisActive(EAxisData aAxisData, EPlayerId aPlayerId)
-    {
-        string axisFullInputName = aAxisData.GetFullInputName(aPlayerId);
-
-        if (aAxisData.MinimalValue < 0 &&
-            Input.GetAxis(axisFullInputName) < aAxisData.MinimalValue)
+        if (aAxisData.MinimalValue < 0)
         {
-            return true;
+            if (Input.GetAxis(aAxisData.AxisInputString + aPlayerId.InputSuffix) < aAxisData.MinimalValue)
+            {
+                return true;
+            }
         }
-        else if (aAxisData.MinimalValue > 0 &&
-            Input.GetAxis(axisFullInputName) > aAxisData.MinimalValue)
+        else
         {
-            return true;
+            if (Input.GetAxis(aAxisData.AxisInputString + aPlayerId.InputSuffix) > aAxisData.MinimalValue)
+            {
+                return true;
+            }
         }
         
         return false;
