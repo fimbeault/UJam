@@ -73,6 +73,7 @@ public class VisualManager : MonoBehaviour
         buttonRenderer.SetSpriteFrame(axisData);
         buttonRenderer.gameObject.transform.position = spawnPositionList[axisData.AxisDirection].position;
 
+        buttonRenderer.PlayFadeIn();
 
         DisplayedNoteData displayedNoteData = new DisplayedNoteData();
         displayedNoteData.Note = aNote;

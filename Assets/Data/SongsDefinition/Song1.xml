@@ -19,6 +19,14 @@ Notes time :
 			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
+			<Note type="U" time="Quarter"/>
+			<Note type="D" time="Quarter"/>
+			<Note type="L" time="Quarter"/>
+			<Note type="R" time="Quarter"/>
+			<Note type="R" time="Quarter"/>
+			<Note type="L" time="Quarter"/>
+			<Note type="D" time="Quarter"/>
+			<Note type="U" time="Quarter"/>
 		</Combo>
 		<Combo BPM="110">
 			<Note type="B" time="Quarter"/>
