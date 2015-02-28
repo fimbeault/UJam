@@ -101,6 +101,11 @@ public class EAxisData
         }
     }
 
+    public string GetFullInputName(EPlayerId aPlayerId)
+    {
+        return mAxisInputString + aPlayerId.InputSuffix;
+    }
+
     public string GetFullAxisName(EPlayerId aPlayerId)
 	{
 		return mAxisName + aPlayerId.InputSuffix;

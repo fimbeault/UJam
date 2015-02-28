@@ -22,7 +22,7 @@ public class VisualManager : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
         MoveDisplayedNotes(Time.deltaTime);
 	}
@@ -71,12 +71,12 @@ public class VisualManager : MonoBehaviour
 
         SpawnNote(note, aPlayerId);
 
-        DestroyWithDelay(note);
+        StartCoroutine(DestroyWithDelay(note));
     }
 
     private IEnumerator DestroyWithDelay(Note aNote)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4f);
         DestroyNote(aNote);
     }
 

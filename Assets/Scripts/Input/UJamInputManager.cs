@@ -1,68 +1,70 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class UJamInputManager : MonoBehaviour
 {
-    public List<ButtonRenderer> _ButtonRendererList;
+    private Dictionary<string, bool> mActiveAxisCache;
 
-	void Start ()
-    {
-	
-	}
-	
-	void Update ()
-    {
-        //UpdatePressedCache();
-	}
+    public VisualManager _VisualManager;
 
-    private void UpdatePressedCache()
+    void Start()
+    {
+        mActiveAxisCache = new Dictionary<string, bool>();
+
+        List<EAxisData> axisDataList = EAxisData.GetList();
+        List<EPlayerId> playerIdList = EPlayerId.GetList();
+        foreach (EPlayerId playerId in playerIdList)
+        {
+            foreach (EAxisData axisData in axisDataList)
+            {
+                mActiveAxisCache[axisData.GetFullAxisName(playerId)] = false;
+            }
+        }
+    }
+
+    void Update()
     {
         List<EAxisData> axisDataList = EAxisData.GetList();
         List<EPlayerId> playerIdList = EPlayerId.GetList();
 
-        for (int i = 0; i < _ButtonRendererList.Count; i++)
+        foreach (EPlayerId playerId in playerIdList)
         {
-            ButtonRenderer buttonRenderer = _ButtonRendererList[i];
-        
-            bool isInputEntered = false;
-
             foreach (EAxisData axisData in axisDataList)
             {
-                if (IsAxisActive(playerIdList[i], axisData))
+                string axisFullName = axisData.GetFullAxisName(playerId);
+                bool isAxisActive = IsAxisActive(axisData, playerId);
+                bool cachedAxisActive = mActiveAxisCache[axisFullName];
+
+                if (cachedAxisActive != isAxisActive)
                 {
-                    isInputEntered = true;
-                    buttonRenderer.SetSpriteFrame(axisData);
+                    DispatchAxisChanged(axisData, playerId, isAxisActive);
+                    mActiveAxisCache[axisFullName] = isAxisActive;
                     break;
                 }
             }
-
-            if (buttonRenderer.gameObject.activeInHierarchy != isInputEntered)
-            {
-                buttonRenderer.gameObject.SetActive(isInputEntered);
-            }
         }
-	}
+    }
 
-    private bool IsAxisActive(EPlayerId aPlayerId, EAxisData aAxisData)
+    private void DispatchAxisChanged(EAxisData aAxisData, EPlayerId aPlayerId, bool aIsAxisActive)
     {
-        //Debug.Log("IsKeyActive : " + aAxisData.ToString() + ", suffix : " + aPlayerId.InputSuffix);
+        _VisualManager.OnAxisChanged(aPlayerId, aAxisData, aIsAxisActive);
+    }
 
-        if (aAxisData.MinimalValue < 0)
+    private bool IsAxisActive(EAxisData aAxisData, EPlayerId aPlayerId)
+    {
+        string axisFullInputName = aAxisData.GetFullInputName(aPlayerId);
+
+        if (aAxisData.MinimalValue < 0 &&
+            Input.GetAxis(axisFullInputName) < aAxisData.MinimalValue)
         {
-            if (Input.GetAxis(aAxisData.AxisInputString + aPlayerId.InputSuffix) < aAxisData.MinimalValue)
-            {
-                return true;
-            }
+            return true;
         }
-        else
+        else if (aAxisData.MinimalValue > 0 &&
+            Input.GetAxis(axisFullInputName) > aAxisData.MinimalValue)
         {
-            if (Input.GetAxis(aAxisData.AxisInputString + aPlayerId.InputSuffix) > aAxisData.MinimalValue)
-            {
-                return true;
-            }
+            return true;
         }
-        
+
         return false;
     }
 }
