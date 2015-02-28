@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 public class RythmicManager : MonoBehaviour {
 
-	const float kStepFrequency = 1.0f / 64.0f;
+	const uint kuiStepGranularity = 16;
+	const float kStepFrequency = 1.0f / kuiStepGranularity;
 	const float kfPerfectTiming = 0.1f;
 	const float kfGoodTiming = 0.2f;
 	const float kfBadTiming = 0.4f;
 
 	public VisualManager visualManager;
+	public AudioClip tickSound;
+	public AudioClip song;
+
+	bool bSongStarted = false;
 
 	Combo currentCombo = null;
 	List<Note> visibleNotes = new List<Note>();
@@ -17,6 +22,8 @@ public class RythmicManager : MonoBehaviour {
 	float fSongTimer = 0.0f;
 	float fStepTimer = 0.0f;
 	float fComboTimer = 0.0f;
+
+	uint uiStepCount = 0;
 
 	float fCurrentUpdateFrequency = 0.0f;
 
@@ -81,26 +88,42 @@ public class RythmicManager : MonoBehaviour {
 
 		fSongTimer += Time.deltaTime;
 
-		// Get Next Combo
-		if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
-		{
-			GetNextCombo ();
-			return;
-		}
-
 		// Update Current Combo
 		fStepTimer += Time.deltaTime;
 		if (fStepTimer >= fCurrentUpdateFrequency)
 		{
 			fComboTimer += fStepTimer;
 
+			if (uiStepCount == kuiStepGranularity)
+				uiStepCount = 0;
+
 			SongStep();
+			uiStepCount++;
+
 			fStepTimer = 0.0f;
 		}
 	}
 
 	void SongStep()
 	{
+		if (!bSongStarted)
+		{
+			gameObject.GetComponent<AudioSource>().PlayOneShot(song);
+			bSongStarted = true;
+		}
+
+		if (uiStepCount == 0)
+		{
+			// Get Next Combo
+			if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+				GetNextCombo ();
+
+			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
+		}
+
+		if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+			return;
+
 		// Make notes appear
 		while ((currentCombo.notes.Count > 0) &&
 		       (fComboTimer >= currentCombo.notes[0].fTime - kfNoteAppearDelay))
