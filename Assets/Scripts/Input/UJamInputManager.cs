@@ -5,7 +5,7 @@ public class UJamInputManager : MonoBehaviour
 {
     private Dictionary<string, bool> mActiveAxisCache;
 
-    public VisualManager _VisualManager;
+    public GameManager _GameManager;
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class UJamInputManager : MonoBehaviour
 
     private void DispatchAxisChanged(EAxisData aAxisData, EPlayerId aPlayerId, bool aIsAxisActive)
     {
-        //_VisualManager.OnAxisChanged(aPlayerId, aAxisData, aIsAxisActive);
+        _GameManager.OnAxisChanged(aPlayerId, aAxisData, aIsAxisActive);
     }
 
     private bool IsAxisActive(EAxisData aAxisData, EPlayerId aPlayerId)
