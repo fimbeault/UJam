@@ -77,6 +77,22 @@ public class EAxisData
         }
     }
 
+    public int AxisDirection
+    {
+        get
+        {
+            return mAxisDirection;
+        }
+    }
+
+    public float MinimalValue
+    {
+        get
+        {
+            return mMinimalValue;
+        }
+    }
+
     public string AxisInputString
     {
         get
@@ -88,12 +104,7 @@ public class EAxisData
     public string GetFullAxisName(EPlayerId aPlayerId)
 	{
 		return mAxisName + aPlayerId.InputSuffix;
-	}    {
-        get
-        {
-            return mMinimalValue;
-        }
-    }
+	}
 
     override public string ToString()
     {

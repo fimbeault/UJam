@@ -66,7 +66,7 @@ public class VisualManager : MonoBehaviour
     public void OnAxisChanged(EPlayerId aPlayerId, EAxisData aAxisData, bool aIsAxisActive)
     {
         Note note = new Note();
-        note.sName = aAxisData.AxisName;
+        note.sType = aAxisData.AxisName;
         note.fTime = 3.0f;
 
         SpawnNote(note, aPlayerId);
@@ -82,7 +82,7 @@ public class VisualManager : MonoBehaviour
 
     public void SpawnNote(Note aNote, EPlayerId aPlayerId)
     {
-        EAxisData axisData = EAxisData.GetAxisByName(aNote.sName);
+        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
 
         List<Transform> spawnPositionList = (aPlayerId.Id == 0) ? _P1SpawnPositionsList : _P2SpawnPositionsList;
 

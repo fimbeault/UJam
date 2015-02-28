@@ -14,7 +14,7 @@ public class Note {
 		NoteType_SixtyFourth
 	};
 
-    public string sName;
+    public string sType;
 	public float fTime;
 
 	// Use this for initialization
