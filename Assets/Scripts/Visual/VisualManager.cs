@@ -62,7 +62,7 @@ public class VisualManager : MonoBehaviour
             rendererTransform.position += velocity;
         }
     }
-
+	/*
     public void OnAxisChanged(EPlayerId aPlayerId, EAxisData aAxisData, bool aIsAxisActive)
     {
         Note note = new Note();
@@ -78,9 +78,9 @@ public class VisualManager : MonoBehaviour
     {
         yield return new WaitForSeconds(4f);
         DestroyNote(aNote);
-    }
+    }*/
 
-    public void SpawnNote(Note aNote, EPlayerId aPlayerId)
+    public void SpawnNote(Note aNote, EPlayerId aPlayerId, float fLifetime)
     {
         EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
 
@@ -95,7 +95,7 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.Note = aNote;
         displayedNoteData.Renderer = buttonRenderer;
         displayedNoteData.AxisData = axisData;
-        displayedNoteData.TravelSpeed = _ButtonTravelDistance / aNote.fTime;
+		displayedNoteData.TravelSpeed = _ButtonTravelDistance / fLifetime;
 
         mDisplayedNoteDataList.Add(displayedNoteData);
     }

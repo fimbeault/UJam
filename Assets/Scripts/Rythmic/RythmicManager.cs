@@ -6,6 +6,8 @@ public class RythmicManager : MonoBehaviour {
 
 	const float kStepFrequency = 1.0f / 64.0f;
 
+	public VisualManager visualManager;
+
 	Combo currentCombo = null;
 	List<Note> visibleNotes = new List<Note>();
 
@@ -94,7 +96,7 @@ public class RythmicManager : MonoBehaviour {
 			if (!currentCombo.notes[0].sType.Equals("Rest"))
 			{
 				// Appear
-
+				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, kfNoteAppearDelay * 2);
 				visibleNotes.Add (currentCombo.notes[0]);
 			}
 
@@ -106,6 +108,7 @@ public class RythmicManager : MonoBehaviour {
 		       (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay))
 		{
 			// Disapear
+			visualManager.DestroyNote(visibleNotes[0]);
 
 			visibleNotes.RemoveAt(0);
 		}
