@@ -49,8 +49,15 @@
      <Compile Include="Assets\Scripts\Input\EAxisData.cs" />
      <Compile Include="Assets\Scripts\Input\EPlayerId.cs" />
      <Compile Include="Assets\Scripts\Input\UJamInputManager.cs" />
+     <Compile Include="Assets\Scripts\Rythmic\Combo.cs" />
+     <Compile Include="Assets\Scripts\Rythmic\Note.cs" />
+     <Compile Include="Assets\Scripts\Rythmic\RythmicManager.cs" />
+     <Compile Include="Assets\Scripts\Rythmic\SongManager.cs" />
+     <Compile Include="Assets\Scripts\Rythmic\SongParser.cs" />
      <Compile Include="Assets\Scripts\Tests\ButtonRenderer.cs" />
+     <Compile Include="Assets\Scripts\Tests\InputResult.cs" />
      <Compile Include="Assets\Scripts\Tests\RythmicTests.cs" />
+     <None Include="Assets\Data\SongsDefinition\Song1.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

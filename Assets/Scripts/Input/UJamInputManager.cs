@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class UJamInputManager : MonoBehaviour
 {
-    public ButtonRenderer _ButtonRenderer;
+    public List<ButtonRenderer> _ButtonRendererList;
 
 	// Use this for initialization
 	void Start ()
@@ -16,24 +16,28 @@ public class UJamInputManager : MonoBehaviour
 	void Update ()
     {
         List<EAxisData> axisDataList = EAxisData.GetList();
-        //List<EPlayerId> playerIdList = EPlayerId.GetList();
+        List<EPlayerId> playerIdList = EPlayerId.GetList();
 
-        bool isInputEntered = false;
-
-        foreach (EAxisData axisData in axisDataList)
+        for (int i = 0; i < _ButtonRendererList.Count; i++)
         {
-            if (IsAxisActive(EPlayerId.PLAYER_ONE, axisData))
+            ButtonRenderer buttonRenderer = _ButtonRendererList[i];
+        
+            bool isInputEntered = false;
+
+            foreach (EAxisData axisData in axisDataList)
             {
-                Debug.Log("Input is down : " + axisData.ToString());
-                isInputEntered = true;
-                _ButtonRenderer.SetSpriteFrame(axisData);
-                break;
+                if (IsAxisActive(playerIdList[i], axisData))
+                {
+                    isInputEntered = true;
+                    buttonRenderer.SetSpriteFrame(axisData);
+                    break;
+                }
             }
-        }
 
-        if (_ButtonRenderer.gameObject.activeInHierarchy != isInputEntered)
-        {
-            _ButtonRenderer.gameObject.SetActive(isInputEntered);
+            if (buttonRenderer.gameObject.activeInHierarchy != isInputEntered)
+            {
+                buttonRenderer.gameObject.SetActive(isInputEntered);
+            }
         }
 	}
 
