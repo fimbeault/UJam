@@ -91,9 +91,13 @@ public class RythmicManager : MonoBehaviour {
 		while ((currentCombo.notes.Count > 0) &&
 		       (fComboTimer >= currentCombo.notes[0].fTime - kfNoteAppearDelay))
 		{
-			// Appear
+			if (!currentCombo.notes[0].sType.Equals("Rest"))
+			{
+				// Appear
 
-			visibleNotes.Add (currentCombo.notes[0]);
+				visibleNotes.Add (currentCombo.notes[0]);
+			}
+
 			currentCombo.notes.RemoveAt (0);
 		}
 
