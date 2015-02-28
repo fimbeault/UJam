@@ -11,6 +11,8 @@ public class EPlayerId
     public static EPlayerId PLAYER_FOUR = new EPlayerId("_4");
 
     private string mInputSuffix;
+    private int mInputIndex;
+
     public string InputSuffix
     {
         get
@@ -19,8 +21,17 @@ public class EPlayerId
         }
     }
 
+    public int InputIndex
+    {
+        get
+        {
+            return mInputIndex;
+        }
+    }
+
     public EPlayerId(string aInputSuffix)
     {
+        mInputIndex = mList.Count;
         mList.Add(this);
 
         mInputSuffix = aInputSuffix;

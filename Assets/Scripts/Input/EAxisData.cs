@@ -71,20 +71,22 @@ public class EAxisData
         }
     }
 
-    public string AxisInputString
-    {
-        get
-        {
-            return mAxisInputString;
-        }
-    }
-
     public float MinimalValue
     {
         get
         {
             return mMinimalValue;
         }
+    }
+
+    public string GetFullAxisName(EPlayerId aPlayerId)
+    {
+        return mAxisName + aPlayerId.InputSuffix;
+    }
+
+    public string GetFullInputName(EPlayerId aPlayerId)
+    {
+        return mAxisInputString + aPlayerId.InputSuffix;
     }
 
     override public string ToString()
