@@ -2,15 +2,23 @@
 <Song>
 	<Section startTime="0" endTime="60" BPM="110">
 		<Combo>
-			<Note type="None" time="Quarter"/>
+			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
+			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
+			<Note type="X" time="Quarter"/>
 		</Combo>
 		<Combo>
 			<Note type="B" time="Quarter"/>
-			<Note type="B" time="Quarter"/>
+			<Note type="B" time="Eighth"/>
+			<Note type="A" time="Eighth"/>
+			<Note type="Rest" time="Quarter"/>
 			<Note type="A" time="Quarter"/>
+			<Note type="B" time="Quarter"/>
+			<Note type="B" time="Eighth"/>
+			<Note type="A" time="Eighth"/>
+			<Note type="Rest" time="Quarter"/>
 			<Note type="A" time="Quarter"/>
 		</Combo>
 	</Section>
