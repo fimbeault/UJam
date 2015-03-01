@@ -23,12 +23,14 @@ public class VisualManager : MonoBehaviour
     public List<Vector3> _FeedbackOffsets;
 
     private List<DisplayedNoteData> mDisplayedNoteDataList;
+    public GameObject _FullScreenEffectGO;
 
 	// Use this for initialization
 	void Start ()
     {
         mDisplayedNoteDataList = new List<DisplayedNoteData>();
-	}
+        _FullScreenEffectGO.SetActive(true);
+    }
 	
 	// Update is called once per frame
 	void Update()
