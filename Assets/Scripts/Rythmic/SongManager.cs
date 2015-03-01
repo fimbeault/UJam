@@ -46,7 +46,7 @@ public class SongManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		sectionList = SongParser.ParseSong (Application.dataPath + "/Data/SongsDefinition/Song1.xml");
+		sectionList = SongParser.ParseSong (Application.streamingAssetsPath + "/SongsDefinition/Song1.xml");
 	}
 	
 	// Update is called once per frame

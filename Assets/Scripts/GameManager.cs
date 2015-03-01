@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        mCurrentPlayerId = EPlayerId.PLAYER_ONE;
+        mCurrentPlayerId = EPlayerId.PLAYER_TWO;
 	}
 	
 	// Update is called once per frame

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class RythmicManager : MonoBehaviour {
 
-	const float kfSongTime = 10.0f;
+	public cameraShake camShake;
+
+	const float kfSongTime = 259.0f;
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
@@ -51,7 +53,7 @@ public class RythmicManager : MonoBehaviour {
 	void Start () {
 		GetNextCombo ();
 
-		gameObject.GetComponent<AudioSource>().PlayOneShot(song);
+		//gameObject.GetComponent<AudioSource>().PlayOneShot(song);
 		bSongStarted = true;
 
 		fStepTimer = fCurrentUpdateFrequency;
@@ -73,6 +75,7 @@ public class RythmicManager : MonoBehaviour {
 		if (processedNote == null)
 		{
 			// Miss you noob!
+			Miss ();
 			return;
 		}
 
@@ -95,7 +98,8 @@ public class RythmicManager : MonoBehaviour {
 			}
 			else
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS, 0);
+				Miss ();
+				return;
 			}
 		}
 		else
@@ -113,7 +117,8 @@ public class RythmicManager : MonoBehaviour {
 			}
 			else
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS, 0);
+				Miss ();
+				return;
 			}
 		}
 
@@ -183,10 +188,13 @@ public class RythmicManager : MonoBehaviour {
 			if (fComboTimer >= visibleNotes[0].fTime + fNoteAppearDelay * kfTotalAfterPerfectRatio)
 			{
 				// Disapear
-                visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS, 0);
+				Miss ();
+				return;
+				/*
 				visualManager.DestroyNote(visibleNotes[0]);
 				
-				visibleNotes.RemoveAt(0);
+				visibleNotes.RemoveAt(0);*/
+
 			}
 			else if (!visibleNotes[0].sType.Equals("Rest") &&
 			         !visibleNotes[0].bPerfectTimePassed &&
@@ -206,10 +214,12 @@ public class RythmicManager : MonoBehaviour {
 		{
 			// Get Next Combo
             if (currentCombo == null || currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+			{
 				GetNextCombo();
 
-			if (currentCombo != null && currentCombo.notes.Count > 0)
-				gameManager.OnStartNextCombo();
+				if (currentCombo != null && currentCombo.notes.Count > 0)
+					gameManager.OnStartNextCombo();
+			}
 
 			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
 		}
@@ -222,5 +232,20 @@ public class RythmicManager : MonoBehaviour {
 		//fStepTimer = 0.0f;
 		fComboTimer = 0.0f;//-2.0f * (60 / currentCombo.fBPM); // Pro hack!
 		fCurrentUpdateFrequency = (60 / SongManager.GetCurrentSectionBPM()) * kStepFrequency;
+	}
+
+	void Miss()
+	{
+		visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS, 0);
+
+		foreach (Note note in visibleNotes)
+			visualManager.DestroyNote(note);
+
+		visibleNotes.Clear ();
+		currentCombo.notes.Clear ();
+		currentCombo = null;
+
+		if (camShake != null)
+			camShake.Shake ();
 	}
 }

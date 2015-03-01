@@ -14,8 +14,7 @@ public class Combo {
 	{
 		notes = new List<Note> (combo.notes.Count);
 
-		combo.notes.ForEach((item) =>
-		                {
+		combo.notes.ForEach((item) => {
 			notes.Add((Note)item.Clone());
 		});
 	}

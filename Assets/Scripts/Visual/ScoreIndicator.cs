@@ -45,6 +45,9 @@ public class ScoreIndicator : MonoBehaviour {
 		if (fCurrentScore > fScoreMax)
 			fCurrentScore = fScoreMax;
 
+		if (fCurrentScore < 0.0f)
+			fCurrentScore = 0.0f;
+
 		UpdateVisual ();
 	}
 
@@ -52,6 +55,9 @@ public class ScoreIndicator : MonoBehaviour {
 	{
 		fCurrentScore -= _fScore;
 
+		if (fCurrentScore > fScoreMax)
+			fCurrentScore = fScoreMax;
+		
 		if (fCurrentScore < 0.0f)
 			fCurrentScore = 0.0f;
 		

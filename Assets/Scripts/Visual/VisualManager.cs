@@ -145,7 +145,7 @@ public class VisualManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Killed node. Start time : " + displayedNoteData.OnNodeCreateTime + ", travel time : " + displayedNoteData.NodeTravelElapsedTime + ", Position reached time " + displayedNoteData.OnPositionReachedTime + ", TimeElapsed left received : " + displayedNoteData.OnPositionReachedTimeLeft + ", Current time : " + Time.time);
+        //Debug.Log("Killed node. Start time : " + displayedNoteData.OnNodeCreateTime + ", travel time : " + displayedNoteData.NodeTravelElapsedTime + ", Position reached time " + displayedNoteData.OnPositionReachedTime + ", TimeElapsed left received : " + displayedNoteData.OnPositionReachedTimeLeft + ", Current time : " + Time.time);
 
         Destroy(displayedNoteData.Renderer.gameObject);
         mDisplayedNoteDataList.Remove(displayedNoteData);
