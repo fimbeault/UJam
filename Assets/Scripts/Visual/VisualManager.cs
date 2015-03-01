@@ -10,6 +10,7 @@ public class VisualManager : MonoBehaviour
     public List<Transform> _P2SpawnPositionsList;
 
     public float _ButtonTravelDistance;
+    public float _ArrowTravelDistance;
 
     public ButtonRenderer _ButtonRendererPrefab;
 
@@ -101,7 +102,7 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.Note = aNote;
         displayedNoteData.Renderer = buttonRenderer;
         displayedNoteData.AxisData = axisData;
-        displayedNoteData.TravelSpeed = _ButtonTravelDistance / aTimeTotravel;
+        displayedNoteData.TravelSpeed = GetTravelDistance(aNote) / aTimeTotravel;
         displayedNoteData.OriginalPosition = buttonRenderer.gameObject.transform.position;
         displayedNoteData.DoUpdatePosition = true;
 
@@ -109,6 +110,21 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.NodeTravelElapsedTime = aTimeTotravel;
 
         mDisplayedNoteDataList.Add(displayedNoteData);
+    }
+
+    private float GetTravelDistance(Note aNote)
+    {
+        float travelDistance = _ButtonTravelDistance;
+
+        if (aNote.sType == EAxisData.LEFT.AxisName ||
+            aNote.sType == EAxisData.RIGHT.AxisName ||
+            aNote.sType == EAxisData.UP.AxisName ||
+            aNote.sType == EAxisData.DOWN.AxisName)
+        {
+            travelDistance = _ArrowTravelDistance;
+        }
+
+        return travelDistance;
     }
 
     public void DestroyNote(Note aNote)
@@ -125,6 +141,11 @@ public class VisualManager : MonoBehaviour
 
         Destroy(displayedNoteData.Renderer.gameObject);
         mDisplayedNoteDataList.Remove(displayedNoteData);
+    }
+
+    public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType)
+    {
+        Debug.Log(aFeedbackType);
     }
 
     private DisplayedNoteData GetDisplayedNoteDataByNote(Note aNote)

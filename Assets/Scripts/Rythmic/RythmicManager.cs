@@ -80,23 +80,19 @@ public class RythmicManager : MonoBehaviour {
 
 			if (missRatio <= kfPerfectTiming)
 			{
-				// Wow such awesomely perfect!
-				Debug.Log ("Perfect!");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT);
 			}
 			else if (missRatio <= kfGoodTiming)
 			{
-				// Much good
-				Debug.Log ("Good");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.GOOD);
 			}
 			else if (missRatio <= kfOkTiming)
 			{
-				// Very lame
-				Debug.Log ("Ok");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK);
 			}
 			else
 			{
-				// So fail
-				Debug.Log ("Miss");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS);
 			}
 		}
 		else
@@ -106,18 +102,15 @@ public class RythmicManager : MonoBehaviour {
 
 			if (missRatio <= kfPerfectAfterTiming)
 			{
-				// Wow such awesomely perfect!
-				Debug.Log ("Perfect!");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT);
 			}
 			else if (missRatio <= kfOkAfterTiming)
 			{
-				// Very lame
-				Debug.Log ("Ok");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK);
 			}
 			else
 			{
-				// So fail
-				Debug.Log ("Miss");
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS);
 			}
 		}
 
