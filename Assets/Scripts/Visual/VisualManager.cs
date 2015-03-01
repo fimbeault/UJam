@@ -13,7 +13,8 @@ public class VisualManager : MonoBehaviour
 
     public ButtonRenderer _ButtonRendererPrefab;
 
-    public List<CharacterRenderer> _CharacterRendererList;
+    public List<CharacterRenderer> _P1CharacterRendererList;
+    public List<CharacterRenderer> _P2CharacterRendererList;
 
     private List<DisplayedNoteData> mDisplayedNoteDataList;
 
