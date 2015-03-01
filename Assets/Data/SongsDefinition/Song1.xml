@@ -13,6 +13,16 @@ Notes time :
 <Song>
 	<Section startTime="0" endTime="60">
 		<Combo BPM="110">
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="Rest" time="Quarter"/>
+		</Combo>
+		<Combo BPM="110">
 			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
