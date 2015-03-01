@@ -11,30 +11,143 @@ Notes time :
 "SixtyFourth"	: 1/64
 -->
 <Song>
-	<Section startTime="0" endTime="60">
-		<Combo BPM="110">
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-		</Combo>
-		<Combo BPM="110">
+	<Section startTime="0" endTime="3" BPM="110">
+	</Section>
+	<Section startTime="3" endTime="320" BPM="110">
+		<Combo>
 			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
+			
 			<Note type="A" time="Half"/>
 			<Note type="A" time="Quarter"/>
 			<Note type="X" time="Quarter"/>
-			<Note type="U" time="Quarter"/>
-			<Note type="D" time="Quarter"/>
-			<Note type="L" time="Quarter"/>
-			<Note type="R" time="Quarter"/>
-			<Note type="R" time="Quarter"/>
-			<Note type="L" time="Quarter"/>
-			<Note type="D" time="Quarter"/>
-			<Note type="U" time="Quarter"/>
+			
+			<Note type="U" time="Eighth"/>
+			<Note type="R" time="Eighth"/>
+			<Note type="R" time="Eighth"/>
+			<Note type="L" time="Eighth"/>
+			<Note type="D" time="Eighth"/>
+			<Note type="U" time="Eighth"/>
+			<Note type="U" time="Eighth"/>
+			<Note type="D" time="Eighth"/>
+			
+			<Note type="U" time="Sixteenth"/>
+			<Note type="R" time="Sixteenth"/>
+			<Note type="R" time="Sixteenth"/>
+			<Note type="L" time="Sixteenth"/>
+			<Note type="D" time="Sixteenth"/>
+			<Note type="U" time="Sixteenth"/>
+			<Note type="U" time="Sixteenth"/>
+			<Note type="D" time="Sixteenth"/>
+			<Note type="U" time="Sixteenth"/>
+			<Note type="R" time="Sixteenth"/>
+			<Note type="R" time="Sixteenth"/>
+			<Note type="L" time="Sixteenth"/>
+			<Note type="D" time="Sixteenth"/>
+			<Note type="U" time="Sixteenth"/>
+			<Note type="U" time="Sixteenth"/>
+			<Note type="D" time="Sixteenth"/>
+			
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="L" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="L" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="L" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="R" time="ThirtySecond"/>
+			<Note type="L" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="U" time="ThirtySecond"/>
+			<Note type="D" time="ThirtySecond"/>
+			
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="R" time="SixtyFourth"/>
+			<Note type="L" time="SixtyFourth"/>
+			<Note type="D" time="SixtyFourth"/>
+			<Note type="U" time="SixtyFourth"/>
 		</Combo>
-		<Combo BPM="110">
+		<Combo>
 			<Note type="B" time="Quarter"/>
 			<Note type="B" time="Eighth"/>
 			<Note type="A" time="Eighth"/>

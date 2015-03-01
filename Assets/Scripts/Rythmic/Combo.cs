@@ -5,15 +5,18 @@ using System.Collections.Generic;
 public class Combo {
 
 	public List<Note> notes = new List<Note>();
-	public float fBPM;
 
-	// Use this for initialization
-	void Start () {
-	
+	public Combo()
+	{
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public Combo(Combo combo)
+	{
+		notes = new List<Note> (combo.notes.Count);
+
+		combo.notes.ForEach((item) =>
+		                {
+			notes.Add((Note)item.Clone());
+		});
 	}
 }
