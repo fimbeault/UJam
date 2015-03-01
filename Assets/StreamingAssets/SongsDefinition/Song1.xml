@@ -14,6 +14,18 @@ Notes time :
 	<Section startTime="0" endTime="3" BPM="110">
 	</Section>
 	<Section startTime="3" endTime="90" BPM="110">
+		<Combo>
+			<Note type="B" time="Quarter"/>
+			<Note type="B" time="Eighth"/>
+			<Note type="A" time="Eighth"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="A" time="Quarter"/>
+			<Note type="B" time="Quarter"/>
+			<Note type="B" time="Eighth"/>
+			<Note type="A" time="Eighth"/>
+			<Note type="Rest" time="Quarter"/>
+			<Note type="A" time="Quarter"/>
+		</Combo>
 	</Section>
 	<Section startTime="90" endTime="122" BPM="135">
 	</Section>
