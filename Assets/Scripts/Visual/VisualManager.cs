@@ -13,6 +13,7 @@ public class VisualManager : MonoBehaviour
     public float _ArrowTravelDistance;
 
     public ButtonRenderer _ButtonRendererPrefab;
+    public FeedbackRenderer _FeedbackRendererPrefab;
 
     public List<CharacterRenderer> _P1CharacterRendererList;
     public List<CharacterRenderer> _P2CharacterRendererList;
@@ -145,7 +146,19 @@ public class VisualManager : MonoBehaviour
 
     public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType)
     {
-        Debug.Log(aFeedbackType);
+        DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
+
+        FeedbackRenderer feedbackRenderer = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
+        feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position;
+
+        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
+
+        if (aFeedbackType != ETimingFeedbackType.MISS)
+        {
+            _P1CharacterRendererList[axisData.AxisDirection].PlayWinAnim();
+        }
+        
+        feedbackRenderer.DisplayFeedbackType(aFeedbackType);
     }
 
     private DisplayedNoteData GetDisplayedNoteDataByNote(Note aNote)

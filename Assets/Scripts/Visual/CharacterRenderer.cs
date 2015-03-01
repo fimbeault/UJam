@@ -18,11 +18,6 @@ public class CharacterRenderer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if (Input.GetAxis("A_1") > 0)
-        {
-            PlayWinAnim();
-        }
-
         AnimatorStateInfo stateInfo = mCharacterAnimator.GetCurrentAnimatorStateInfo(0);
         mCharacterAnimator.speed = stateInfo.length / (60f/110f);
 	}
