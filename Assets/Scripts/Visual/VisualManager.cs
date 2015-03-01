@@ -31,6 +31,8 @@ public class VisualManager : MonoBehaviour
     {
         foreach (DisplayedNoteData displayedNoteData in mDisplayedNoteDataList)
         {
+            if (!displayedNoteData.DoUpdatePosition) continue;
+
             Transform rendererTransform = displayedNoteData.Renderer.transform;
             Vector3 velocity = new Vector3();
             float travelDistance = displayedNoteData.TravelSpeed * aTimeElapsed;
@@ -60,10 +62,16 @@ public class VisualManager : MonoBehaviour
             }
 
             rendererTransform.position += velocity;
+
+            if (Vector3.Distance(rendererTransform.position, displayedNoteData.OriginalPosition) >= _ButtonTravelDistance)
+            {
+                displayedNoteData.DoUpdatePosition = false;
+                displayedNoteData.Renderer.PlayFadeOut();
+            }
         }
     }
 
-    public void SpawnNote(Note aNote, EPlayerId aPlayerId, float fLifetime)
+    public void SpawnNote(Note aNote, EPlayerId aPlayerId, float aTimeTotravel)
     {
         EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
 
@@ -79,7 +87,9 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.Note = aNote;
         displayedNoteData.Renderer = buttonRenderer;
         displayedNoteData.AxisData = axisData;
-		displayedNoteData.TravelSpeed = _ButtonTravelDistance / fLifetime;
+        displayedNoteData.TravelSpeed = _ButtonTravelDistance / aTimeTotravel;
+        displayedNoteData.OriginalPosition = buttonRenderer.gameObject.transform.position;
+        displayedNoteData.DoUpdatePosition = true;
 
         mDisplayedNoteDataList.Add(displayedNoteData);
     }
@@ -98,10 +108,12 @@ public class VisualManager : MonoBehaviour
     }
 }
 
-public struct DisplayedNoteData
+public class DisplayedNoteData
 {
     public Note Note;
     public ButtonRenderer Renderer;
     public EAxisData AxisData;
     public float TravelSpeed;
+    public Vector3 OriginalPosition;
+    public bool DoUpdatePosition;
 }
