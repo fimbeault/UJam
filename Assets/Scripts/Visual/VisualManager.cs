@@ -79,7 +79,10 @@ public class VisualManager : MonoBehaviour
         }
 
         displayedNoteData.DoUpdatePosition = false;
-        displayedNoteData.Renderer.PlayFadeOut(aRemainingLifetime);
+        displayedNoteData.Renderer.PlayPerfectTimingReached(aRemainingLifetime);
+
+        displayedNoteData.OnPositionReachedTime = Time.time;
+        displayedNoteData.OnPositionReachedTimeLeft = aRemainingLifetime;
     }
 
     public void SpawnNote(Note aNote, EPlayerId aPlayerId, float aTimeTotravel)
@@ -102,6 +105,9 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.OriginalPosition = buttonRenderer.gameObject.transform.position;
         displayedNoteData.DoUpdatePosition = true;
 
+        displayedNoteData.OnNodeCreateTime = Time.time;
+        displayedNoteData.NodeTravelElapsedTime = aTimeTotravel;
+
         mDisplayedNoteDataList.Add(displayedNoteData);
     }
 
@@ -114,6 +120,8 @@ public class VisualManager : MonoBehaviour
             Debug.LogError("VisualManager.DestroyNote :: Tried to delete a note that isn't registered");
             return;
         }
+
+        Debug.Log("Killed node. Start time : " + displayedNoteData.OnNodeCreateTime + ", travel time : " + displayedNoteData.NodeTravelElapsedTime + ", Position reached time " + displayedNoteData.OnPositionReachedTime + ", TimeElapsed left received : " + displayedNoteData.OnPositionReachedTimeLeft + ", Current time : " + Time.time);
 
         Destroy(displayedNoteData.Renderer.gameObject);
         mDisplayedNoteDataList.Remove(displayedNoteData);
@@ -141,4 +149,10 @@ public class DisplayedNoteData
     public float TravelSpeed;
     public Vector3 OriginalPosition;
     public bool DoUpdatePosition;
+
+
+    public float OnNodeCreateTime;
+    public float NodeTravelElapsedTime;
+    public float OnPositionReachedTime;
+    public float OnPositionReachedTimeLeft;
 }
