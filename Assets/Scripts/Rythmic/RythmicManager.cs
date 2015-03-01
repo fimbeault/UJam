@@ -53,7 +53,7 @@ public class RythmicManager : MonoBehaviour {
 	void Start () {
 		GetNextCombo ();
 
-		//gameObject.GetComponent<AudioSource>().PlayOneShot(song);
+		gameObject.GetComponent<AudioSource>().PlayOneShot(song);
 		bSongStarted = true;
 
 		fStepTimer = fCurrentUpdateFrequency;
@@ -229,9 +229,17 @@ public class RythmicManager : MonoBehaviour {
 	{
 		currentCombo = SongManager.GetNextCombo(fSongTimer);
 
-		//fStepTimer = 0.0f;
-		fComboTimer = 0.0f;//-2.0f * (60 / currentCombo.fBPM); // Pro hack!
-		fCurrentUpdateFrequency = (60 / SongManager.GetCurrentSectionBPM()) * kStepFrequency;
+		float fBPM = SongManager.GetCurrentSectionBPM ();
+
+		fComboTimer = 0.0f;
+		fCurrentUpdateFrequency = (60 / fBPM) * kStepFrequency;
+
+		if (fBPM <= 111.0f)
+			fNoteAppearDelay = 2.0f;
+		else if (fBPM <= 136.0f)
+			fNoteAppearDelay = 1.4f;
+		else
+			fNoteAppearDelay = 1.1f;
 	}
 
 	void Miss()
