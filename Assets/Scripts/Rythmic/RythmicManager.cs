@@ -33,7 +33,7 @@ public class RythmicManager : MonoBehaviour {
 
 	float fCurrentUpdateFrequency = 0.0f;
 
-	float fNoteAppearDelay = 3.0f;
+	float fNoteAppearDelay = 2.0f;
 
 	bool bGameEnded = false;
 
@@ -194,7 +194,7 @@ public class RythmicManager : MonoBehaviour {
 		if (uiStepCount == 0)
 		{
 			// Get Next Combo
-			if (currentCombo != null && currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+			if (currentCombo == null || currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
 				GetNextCombo ();
 
 			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
@@ -203,17 +203,10 @@ public class RythmicManager : MonoBehaviour {
 
 	void GetNextCombo()
 	{
-		currentCombo = SongManager.GetNextCombo();
-		
-		if (currentCombo == null)
-		{
-			// End the game
-			bGameEnded = true;
-			return;
-		}
+		currentCombo = SongManager.GetNextCombo(fSongTimer);
 
-		fStepTimer = 0.0f;
+		//fStepTimer = 0.0f;
 		fComboTimer = 0.0f;//-2.0f * (60 / currentCombo.fBPM); // Pro hack!
-		fCurrentUpdateFrequency = (60 / currentCombo.fBPM) * kStepFrequency;
+		fCurrentUpdateFrequency = (60 / SongManager.GetCurrentSectionBPM()) * kStepFrequency;
 	}
 }
