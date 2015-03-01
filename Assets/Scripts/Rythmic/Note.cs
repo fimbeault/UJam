@@ -17,6 +17,8 @@ public class Note {
     public string sType;
 	public float fTime;
 
+	public bool bPerfectTimePassed = false;
+
 	// Use this for initialization
 	void Start () {
 	

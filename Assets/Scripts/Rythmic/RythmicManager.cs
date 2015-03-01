@@ -6,9 +6,13 @@ public class RythmicManager : MonoBehaviour {
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
-	const float kfPerfectTiming = 0.1f;
-	const float kfGoodTiming = 0.2f;
-	const float kfBadTiming = 0.4f;
+	const float kfPerfectAfterTiming = 0.05f;
+	const float kfPerfectTiming = 0.05f;
+	const float kfGoodTiming = 0.15f;
+	const float kfOkTiming = 0.25f;
+	const float kfOkAfterTiming = 0.1f;
+
+	const float kfTotalAfterPerfectRatio = kfPerfectAfterTiming + kfOkAfterTiming;
 
 	public VisualManager visualManager;
 	public AudioClip tickSound;
@@ -67,24 +71,45 @@ public class RythmicManager : MonoBehaviour {
 			return;
 		}
 
-		float noteDelta = Mathf.Abs(processedNote.fTime - fComboTimer);
-		float missRatio = noteDelta / fNoteAppearDelay;
+		if (fComboTimer <= processedNote.fTime)
+		{
+			float noteDelta = processedNote.fTime - fComboTimer;
+			float missRatio = noteDelta / fNoteAppearDelay;
 
-		if (missRatio <= kfPerfectTiming)
-		{
-			// Wow such awesomely perfect!
-		}
-		else if (missRatio <= kfGoodTiming)
-		{
-			// Much good
-		}
-		else if (missRatio <= kfBadTiming)
-		{
-			// Very lame
+			if (missRatio <= kfPerfectTiming)
+			{
+				// Wow such awesomely perfect!
+			}
+			else if (missRatio <= kfGoodTiming)
+			{
+				// Much good
+			}
+			else if (missRatio <= kfOkTiming)
+			{
+				// Very lame
+			}
+			else
+			{
+				// So fail
+			}
 		}
 		else
 		{
-			// So fail
+			float noteDelta = fComboTimer - processedNote.fTime; 
+			float missRatio = noteDelta / fNoteAppearDelay;
+
+			if (missRatio <= kfPerfectAfterTiming)
+			{
+				// Wow such awesomely perfect!
+			}
+			else if (missRatio <= kfOkAfterTiming)
+			{
+				// Very lame
+			}
+			else
+			{
+				// So fail
+			}
 		}
 
 		// Dissapear
@@ -136,13 +161,24 @@ public class RythmicManager : MonoBehaviour {
 		}
 		
 		// Check missed notes
-		while ((visibleNotes.Count > 0) &&
-		       (fComboTimer > visibleNotes[0].fTime))
+		if (visibleNotes.Count > 0)
 		{
-			// Disapear
-			visualManager.DestroyNote(visibleNotes[0]);
-			
-			visibleNotes.RemoveAt(0);
+			if (fComboTimer >= visibleNotes[0].fTime + fNoteAppearDelay * kfTotalAfterPerfectRatio)
+			{
+				// Disapear
+				visualManager.DestroyNote(visibleNotes[0]);
+				
+				visibleNotes.RemoveAt(0);
+			}
+			else if (!visibleNotes[0].sType.Equals("Rest") &&
+			         !visibleNotes[0].bPerfectTimePassed &&
+			         fComboTimer >= visibleNotes[0].fTime)
+			{
+				// Perfect timing
+				visualManager.DisplayNotePerfectTiming(visibleNotes[0], fNoteAppearDelay * kfTotalAfterPerfectRatio);
+
+				visibleNotes[0].bPerfectTimePassed = true;
+			}
 		}
 	}
 
@@ -170,7 +206,7 @@ public class RythmicManager : MonoBehaviour {
 		}
 
 		fStepTimer = 0.0f;
-		fComboTimer = 0.0f;
+		fComboTimer = -2.0f * (60 / currentCombo.fBPM); // Pro hack!
 		fCurrentUpdateFrequency = (60 / currentCombo.fBPM) * kStepFrequency;
 	}
 }
