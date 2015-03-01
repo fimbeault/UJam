@@ -26,7 +26,7 @@ public class RythmicManager : MonoBehaviour {
 	public AudioClip song;
 
 	bool bSongStarted = false;
-	bool bGetRekt = true;
+	bool bGetRekt = false;
 
 	Combo currentCombo = null;
 	List<Note> visibleNotes = new List<Note>();
@@ -106,7 +106,7 @@ public class RythmicManager : MonoBehaviour {
 					visualManager.DestroyNote(processedNote);
 					visibleNotes.Remove (processedNote);
 				}
-				
+
 				return;
 			}
 		}
