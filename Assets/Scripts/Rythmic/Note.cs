@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Note {
+public class Note : System.ICloneable {
 
 	public enum NoteTime
 	{
@@ -19,13 +19,8 @@ public class Note {
 
 	public bool bPerfectTimePassed = false;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public object Clone ( )
+	{
+		return MemberwiseClone();
 	}
 }

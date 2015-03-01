@@ -5,9 +5,9 @@ using System.Xml;
 
 public class SongParser {
 
-	static public List<Combo> ParseSong(string _file)
+	static public List<SongManager.Section> ParseSong(string _file)
 	{
-		List<Combo> comboList = new List<Combo> ();
+		List<SongManager.Section> sectionList = new List<SongManager.Section> ();
 
 		XmlDocument xml = new XmlDocument ();
 		xml.Load (_file);
@@ -16,17 +16,20 @@ public class SongParser {
 
 		foreach (XmlNode xmlSection in xmlSections)
 		{
+			SongManager.Section section = new SongManager.Section();
+			float.TryParse(xmlSection.Attributes.GetNamedItem("startTime").Value, out section.fStartTime);
+			float.TryParse(xmlSection.Attributes.GetNamedItem("endTime").Value, out section.fEndTime);
+			float.TryParse(xmlSection.Attributes.GetNamedItem("BPM").Value, out section.fBPM);
+			
 			XmlNodeList xmlCombos = xmlSection.SelectNodes("Combo");
 
 			foreach (XmlNode xmlCombo in xmlCombos)
 			{
 				Combo combo = new Combo();
-				float.TryParse(xmlCombo.Attributes.GetNamedItem("BPM").Value, out combo.fBPM);
-
 				XmlNodeList xmlNotes = xmlCombo.SelectNodes("Note");
 
-				float fWhole = combo.fBPM / 240.0f;
-				float fNextNoteTime = 1.0f / fWhole * 2;
+				float fWhole = section.fBPM / 240.0f;
+				float fNextNoteTime = 1.0f / fWhole;
 
 				foreach (XmlNode xmlNote in xmlNotes)
 				{
@@ -41,11 +44,13 @@ public class SongParser {
 				}
 
 				if (combo.notes.Count > 0)
-					comboList.Add (combo);
+					section.comboList.Add (combo);
 			}
+
+			sectionList.Add (section);
 		}
 
-		return comboList;
+		return sectionList;
 	}
 
 	static private Note.NoteTime ParseNoteType(string _type)
