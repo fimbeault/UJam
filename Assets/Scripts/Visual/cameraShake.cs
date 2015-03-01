@@ -6,24 +6,37 @@ public class cameraShake : MonoBehaviour
 	private Quaternion originRotation;
 	public float shake_decay;
 	public float shake_intensity;
+
+    private float current_shake_intensity;
+
+    void Awake()
+    {
+        originPosition = transform.position;
+        originRotation = transform.rotation;
+    }
 	
 	void Update (){
 
-		if (shake_intensity > 0){
-			transform.position = originPosition + Random.insideUnitSphere * shake_intensity;
+		if (current_shake_intensity > 0)
+        {
+			transform.position = originPosition + Random.insideUnitSphere * current_shake_intensity;
 			transform.rotation = new Quaternion(
-				originRotation.x + Random.Range (-shake_intensity,shake_intensity) * .2f,
-				originRotation.y + Random.Range (-shake_intensity,shake_intensity) * .2f,
-				originRotation.z + Random.Range (-shake_intensity,shake_intensity) * .2f,
-				originRotation.w + Random.Range (-shake_intensity,shake_intensity) * .2f);
-			shake_intensity -= shake_decay;
+				originRotation.x + Random.Range (-current_shake_intensity,current_shake_intensity) * .2f,
+				originRotation.y + Random.Range (-current_shake_intensity,current_shake_intensity) * .2f,
+				originRotation.z + Random.Range (-current_shake_intensity,current_shake_intensity) * .2f,
+				originRotation.w + Random.Range (-current_shake_intensity,current_shake_intensity) * .2f);
+			current_shake_intensity -= shake_decay;
+
+            if (current_shake_intensity <= 0)
+            {
+                transform.position = originPosition;
+                transform.rotation = originRotation;
+            }
 		}
 	}
 	
-	public void Shake(){
-		originPosition = transform.position;
-		originRotation = transform.rotation;
-		shake_intensity = 0.05f;
-		shake_decay = 0.003f;
+	public void Shake()
+    {
+        current_shake_intensity = shake_intensity;
 	}
 }

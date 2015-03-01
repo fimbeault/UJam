@@ -14,6 +14,9 @@ public class VisualManager : MonoBehaviour
     public float _ButtonTravelDistance;
     public float _ArrowTravelDistance;
 
+    public ComboTextUI P1ComboText;
+    public ComboTextUI P2ComboText;
+
     public ButtonRenderer _ButtonRendererPrefab;
     public FeedbackRenderer _FeedbackRendererPrefab;
 
@@ -40,12 +43,32 @@ public class VisualManager : MonoBehaviour
 
 	private void AddCombo()
 	{
-		_CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id].uiCurrentCombo++;
+        ScoreIndicator scoreIndicator = _CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id];
+		scoreIndicator.uiCurrentCombo++;
+        
+        if (mGameManager.CurrentActivePlayer == EPlayerId.PLAYER_ONE)
+        {
+            P1ComboText.DisplayComboCount(scoreIndicator.uiCurrentCombo);
+        }
+        else
+        {
+            P2ComboText.DisplayComboCount(scoreIndicator.uiCurrentCombo);
+        }
 	}
 
 	private void ResetCombo()
 	{
-		_CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id].uiCurrentCombo = 0;
+        ScoreIndicator scoreIndicator = _CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id];
+        scoreIndicator.uiCurrentCombo = 0;
+
+        if (mGameManager.CurrentActivePlayer == EPlayerId.PLAYER_ONE)
+        {
+            P1ComboText.DisplayComboCount(scoreIndicator.uiCurrentCombo);
+        }
+        else
+        {
+            P2ComboText.DisplayComboCount(scoreIndicator.uiCurrentCombo);
+        }
 	}
 
     private void MoveDisplayedNotes(float aTimeElapsed)
