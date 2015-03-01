@@ -4,8 +4,12 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public RythmicManager rythmicManager;
+    public VisualManager visualManager;
 
     private EPlayerId mCurrentPlayerId;
+
+
+    public static EPlayerId Winner;
 
 	// Use this for initialization
 	void Start ()
@@ -40,5 +44,16 @@ public class GameManager : MonoBehaviour {
     {
         mCurrentPlayerId = EPlayerId.GetNext(mCurrentPlayerId);
         Debug.Log("Starting next combo! Player id : " + mCurrentPlayerId.Id);
+    }
+
+    public void OnGameEnd()
+    {
+        Winner = visualManager.PlayGameEnd();
+        Invoke("SwitchToEndGame", 1f);
+    }
+
+    private void SwitchToEndGame()
+    {
+        Application.LoadLevel("endgame");
     }
 }

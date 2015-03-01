@@ -70,4 +70,12 @@ public class ScoreIndicator : MonoBehaviour {
 		lastUpdateTime = Time.time;
 		fYPos = fYMin + fCurrentScore * (fYMax - fYMin) / fScoreMax;
 	}
+
+    public float CurrentScore
+    {
+        get
+        {
+            return fCurrentScore;
+        }
+    }
 }

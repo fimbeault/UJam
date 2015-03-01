@@ -189,6 +189,26 @@ public class VisualManager : MonoBehaviour
 
         return null;
     }
+
+    public EPlayerId PlayGameEnd()
+    {
+        _FullScreenEffectGO.GetComponent<FullScreenFadeUI>().PlayFadeIn();
+
+        float bestScore = 0f;
+        ScoreIndicator winnerScoreIndicator = _CrowdIndicatorList[0];
+
+        foreach(ScoreIndicator scoreIndicator in _CrowdIndicatorList)
+        {
+            if (scoreIndicator.CurrentScore > bestScore)
+            {
+                bestScore = scoreIndicator.CurrentScore;
+                winnerScoreIndicator = scoreIndicator;
+            }
+        }
+
+        int winnerIndex = _CrowdIndicatorList.IndexOf(winnerScoreIndicator);
+        return EPlayerId.GetList()[winnerIndex];
+    }
 }
 
 public class DisplayedNoteData

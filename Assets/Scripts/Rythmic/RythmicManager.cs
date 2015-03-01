@@ -125,13 +125,15 @@ public class RythmicManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (fSongTimer >= kfSongTime)
-		{
-			bGameEnded = true;
-		}
-
 		if (bGameEnded)
 			return;
+
+        if (fSongTimer >= kfSongTime)
+        {
+            bGameEnded = true;
+            gameManager.OnGameEnd();
+            return;
+        }
 
 		fSongTimer += Time.deltaTime;
 
