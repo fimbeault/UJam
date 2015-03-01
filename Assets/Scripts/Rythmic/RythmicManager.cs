@@ -6,7 +6,7 @@ public class RythmicManager : MonoBehaviour {
 
 	public cameraShake camShake;
 
-	const float kfSongTime = 259.0f;
+	const float kfSongTime = 180.0f;
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;

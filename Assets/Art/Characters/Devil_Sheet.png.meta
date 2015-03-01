@@ -1,0 +1,136 @@
+fileFormatVersion: 2
+guid: 554971416a5df2d4b88e1887fcda3768
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Devil_Sheet
+    21300002: Devil_Sheet_1
+    21300004: Devil_Sheet_3
+    21300006: Devil_Sheet_4
+    21300008: Devil_Sheet_5
+    21300010: Devil_Sheet_2
+    21300012: Devil_Sheet_7
+    21300014: Devil_Sheet_6
+    21300016: Devil_Sheet_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 120
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Devil_Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 469
+        width: 191
+        height: 262
+      alignment: 9
+      pivot: {x: .423669636, y: -1.16479306e-07}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 469
+        width: 191
+        height: 266
+      alignment: 9
+      pivot: {x: .472096056, y: .00143099902}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 469
+        width: 192
+        height: 278
+      alignment: 9
+      pivot: {x: .457079887, y: -.000425160368}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 131
+        width: 154
+        height: 274
+      alignment: 9
+      pivot: {x: .427527487, y: .000457652292}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 469
+        width: 191
+        height: 278
+      alignment: 9
+      pivot: {x: .471092343, y: .000662055798}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 139
+        width: 255
+        height: 255
+      alignment: 9
+      pivot: {x: .454901963, y: .000392120972}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 131
+        width: 203
+        height: 267
+      alignment: 9
+      pivot: {x: .463055402, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Devil_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 139
+        width: 248
+        height: 266
+      alignment: 9
+      pivot: {x: .468278468, y: -.000642819505}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: c290738b5acf15741a882d6419a8a73b
+guid: e1c840792a11ba946ba4cf7d26fe0104
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Arrow_Left
+    21300000: EndGame
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,10 +35,10 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: .200000003, y: .5}
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 180
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
