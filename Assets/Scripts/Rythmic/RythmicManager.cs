@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RythmicManager : MonoBehaviour {
 
-	const float kfSongTime = 10.0f;
+	const float kfSongTime = 259.0f;
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
