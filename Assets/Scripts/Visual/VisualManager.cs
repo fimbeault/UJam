@@ -190,7 +190,7 @@ public class VisualManager : MonoBehaviour
         EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
 
 		if (mGameManager != null)
-            _CrowdIndicatorList[displayedNoteData.AssociatedPlayer.Id].AddScore(_scoreToAdd);
+            _CrowdIndicatorList[aNote.playerId.Id].AddScore(_scoreToAdd);
 
         FeedbackRenderer feedbackRenderer   = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
         feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position + _FeedbackOffsets[axisData.AxisDirection];
@@ -198,7 +198,7 @@ public class VisualManager : MonoBehaviour
         if (aFeedbackType != ETimingFeedbackType.MISS) {
 			AddCombo ();
 
-			if (displayedNoteData.AssociatedPlayer == EPlayerId.PLAYER_ONE) {
+			if (aNote.playerId == EPlayerId.PLAYER_ONE) {
 				_P1CharacterRendererList [axisData.AxisDirection].PlayWinAnim ();
 			} else {
 				_P2CharacterRendererList [0].PlayWinAnim ();

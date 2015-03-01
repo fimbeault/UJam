@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Input received for player : " + aPlayerId.Id);
 
-        //if (aIsAxisActive == false || aPlayerId != mCurrentPlayerId) return;
+        if (aIsAxisActive == false) return;
 
 		rythmicManager.ProcessInput(aAxisData.AxisName, aPlayerId);
     }
