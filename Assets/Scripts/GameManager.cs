@@ -21,8 +21,24 @@ public class GameManager : MonoBehaviour {
 
     public void OnAxisChanged(EPlayerId aPlayerId, EAxisData aAxisData, bool aIsAxisActive)
     {
+        Debug.Log("Input received for player : " + aPlayerId.Id);
+
         if (aIsAxisActive == false || aPlayerId != mCurrentPlayerId) return;
 
         rythmicManager.ProcessInput(aAxisData.AxisName);
+    }
+
+    public EPlayerId CurrentActivePlayer
+    {
+        get
+        {
+            return mCurrentPlayerId;
+        }
+    }
+
+    public void OnStartNextCombo()
+    {
+        mCurrentPlayerId = EPlayerId.GetNext(mCurrentPlayerId);
+        Debug.Log("Starting next combo! Player id : " + mCurrentPlayerId.Id);
     }
 }

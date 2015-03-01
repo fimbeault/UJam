@@ -16,6 +16,7 @@ public class RythmicManager : MonoBehaviour {
 
 	const float kfPerfectFloatTolerance = 0.01f;
 
+    public GameManager gameManager;
 	public VisualManager visualManager;
 	public AudioClip tickSound;
 	public AudioClip song;
@@ -115,7 +116,7 @@ public class RythmicManager : MonoBehaviour {
 		}
 
 		// Dissapear
-		visualManager.DestroyNote(visibleNotes[0]);
+        visualManager.DestroyNote(processedNote);
 		visibleNotes.Remove (processedNote);
 	}
 	
@@ -160,7 +161,7 @@ public class RythmicManager : MonoBehaviour {
 				// Appear
 				float delay = fComboTimer - (currentCombo.notes[0].fTime - fNoteAppearDelay);
 
-				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, fNoteAppearDelay - delay);
+				visualManager.SpawnNote(currentCombo.notes[0], gameManager.CurrentActivePlayer, fNoteAppearDelay - delay);
 				visibleNotes.Add (currentCombo.notes[0]);
 			}
 			
@@ -173,6 +174,7 @@ public class RythmicManager : MonoBehaviour {
 			if (fComboTimer >= visibleNotes[0].fTime + fNoteAppearDelay * kfTotalAfterPerfectRatio)
 			{
 				// Disapear
+                visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS);
 				visualManager.DestroyNote(visibleNotes[0]);
 				
 				visibleNotes.RemoveAt(0);
@@ -194,12 +196,18 @@ public class RythmicManager : MonoBehaviour {
 		if (uiStepCount == 0)
 		{
 			// Get Next Combo
-			if (currentCombo == null || currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
-				GetNextCombo ();
+            if (currentCombo == null || currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+                StartNextCombo();
 
 			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
 		}
 	}
+
+    private void StartNextCombo()
+    {
+        gameManager.OnStartNextCombo();
+        GetNextCombo();
+    }
 
 	void GetNextCombo()
 	{
