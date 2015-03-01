@@ -26,6 +26,7 @@ public class RythmicManager : MonoBehaviour {
 	public AudioClip song;
 
 	bool bSongStarted = false;
+	bool bGetRekt = true;
 
 	Combo currentCombo = null;
 	List<Note> visibleNotes = new List<Note>();
@@ -59,13 +60,13 @@ public class RythmicManager : MonoBehaviour {
 		fStepTimer = fCurrentUpdateFrequency;
 	}
 
-	public void ProcessInput(string _sInput)
+	public void ProcessInput(string _sInput, EPlayerId aPlayerId)
 	{
 		Note processedNote = null;
-
+		
 		foreach (Note note in visibleNotes)
 		{
-			if (note.sType.Equals(_sInput))
+			if (note.sType.Equals(_sInput) && aPlayerId == note.playerId)
 			{
 				processedNote = note;
 				break;
@@ -75,7 +76,7 @@ public class RythmicManager : MonoBehaviour {
 		if (processedNote == null)
 		{
 			// Miss you noob!
-			Miss ();
+			//Miss ();
 			return;
 		}
 
@@ -99,6 +100,13 @@ public class RythmicManager : MonoBehaviour {
 			else
 			{
 				Miss ();
+
+				if (bGetRekt)
+				{
+					visualManager.DestroyNote(processedNote);
+					visibleNotes.Remove (processedNote);
+				}
+				
 				return;
 			}
 		}
@@ -118,6 +126,13 @@ public class RythmicManager : MonoBehaviour {
 			else
 			{
 				Miss ();
+
+				if (bGetRekt)
+				{
+					visualManager.DestroyNote(processedNote);
+					visibleNotes.Remove (processedNote);
+				}
+
 				return;
 			}
 		}
@@ -175,8 +190,18 @@ public class RythmicManager : MonoBehaviour {
 				// Appear
 				float delay = fComboTimer - (currentCombo.notes[0].fTime - fNoteAppearDelay);
 
-				visualManager.SpawnNote(currentCombo.notes[0], gameManager.CurrentActivePlayer, fNoteAppearDelay - delay);
-				visibleNotes.Add (currentCombo.notes[0]);
+				currentCombo.notes[0].playerId = gameManager.CurrentActivePlayer;
+
+				//if (gameManager.CurrentActivePlayer.Id == 0)
+				{
+					visualManager.SpawnNote(currentCombo.notes[0], gameManager.CurrentActivePlayer, fNoteAppearDelay - delay);
+					visibleNotes.Add (currentCombo.notes[0]);
+				}
+
+				if (bGetRekt)
+				{
+					gameManager.OnStartNextCombo();
+				}
 			}
 			
 			currentCombo.notes.RemoveAt (0);
@@ -189,12 +214,15 @@ public class RythmicManager : MonoBehaviour {
 			{
 				// Disapear
 				Miss ();
-				return;
-				/*
-				visualManager.DestroyNote(visibleNotes[0]);
-				
-				visibleNotes.RemoveAt(0);*/
 
+				if (bGetRekt)
+				{
+					visualManager.DestroyNote(visibleNotes[0]);
+					
+					visibleNotes.RemoveAt(0);
+				}
+
+				return;
 			}
 			else if (!visibleNotes[0].sType.Equals("Rest") &&
 			         !visibleNotes[0].bPerfectTimePassed &&
@@ -217,7 +245,7 @@ public class RythmicManager : MonoBehaviour {
 			{
 				GetNextCombo();
 
-				if (currentCombo != null && currentCombo.notes.Count > 0)
+				if (!bGetRekt && currentCombo != null && currentCombo.notes.Count > 0)
 					gameManager.OnStartNextCombo();
 			}
 
@@ -246,14 +274,17 @@ public class RythmicManager : MonoBehaviour {
 	{
 		visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS, 0);
 
+		if (bGetRekt)
+			return;
+
+		if (camShake != null)
+			camShake.Shake ();
+
 		foreach (Note note in visibleNotes)
 			visualManager.DestroyNote(note);
 
 		visibleNotes.Clear ();
 		currentCombo.notes.Clear ();
 		currentCombo = null;
-
-		if (camShake != null)
-			camShake.Shake ();
 	}
 }

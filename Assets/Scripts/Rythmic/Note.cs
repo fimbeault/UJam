@@ -19,6 +19,8 @@ public class Note : System.ICloneable {
 
 	public bool bPerfectTimePassed = false;
 
+	public EPlayerId playerId;
+
 	public object Clone ( )
 	{
 		return MemberwiseClone();
