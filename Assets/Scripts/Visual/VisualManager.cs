@@ -112,6 +112,7 @@ public class VisualManager : MonoBehaviour
         displayedNoteData.TravelSpeed = GetTravelDistance(aNote) / aTimeTotravel;
         displayedNoteData.OriginalPosition = buttonRenderer.gameObject.transform.position;
         displayedNoteData.DoUpdatePosition = true;
+        displayedNoteData.AssociatedPlayer = aPlayerId;
 
         displayedNoteData.OnNodeCreateTime = Time.time;
         displayedNoteData.NodeTravelElapsedTime = aTimeTotravel;
@@ -152,18 +153,25 @@ public class VisualManager : MonoBehaviour
 
     public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType, float _scoreToAdd)
     {
-		if (mGameManager != null)
-			_CrowdIndicatorList [mGameManager.CurrentActivePlayer.Id].AddScore (_scoreToAdd);
-
-        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
         DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
+        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
+
+		if (mGameManager != null)
+            _CrowdIndicatorList[displayedNoteData.AssociatedPlayer.Id].AddScore(_scoreToAdd);
 
         FeedbackRenderer feedbackRenderer   = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
         feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position + _FeedbackOffsets[axisData.AxisDirection];
 
         if (aFeedbackType != ETimingFeedbackType.MISS)
         {
-            _P1CharacterRendererList[axisData.AxisDirection].PlayWinAnim();
+            if (displayedNoteData.AssociatedPlayer == EPlayerId.PLAYER_ONE)
+            {
+                _P1CharacterRendererList[axisData.AxisDirection].PlayWinAnim();
+            }
+            else
+            {
+                _P2CharacterRendererList[0].PlayWinAnim();
+            }
         }
         
         feedbackRenderer.DisplayFeedbackType(aFeedbackType);
@@ -191,6 +199,7 @@ public class DisplayedNoteData
     public float TravelSpeed;
     public Vector3 OriginalPosition;
     public bool DoUpdatePosition;
+    public EPlayerId AssociatedPlayer;
 
 
     public float OnNodeCreateTime;
