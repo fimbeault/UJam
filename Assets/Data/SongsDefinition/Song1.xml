@@ -17,10 +17,6 @@ Notes time :
 			<Note type="Rest" time="Quarter"/>
 			<Note type="Rest" time="Quarter"/>
 			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
-			<Note type="Rest" time="Quarter"/>
 		</Combo>
 		<Combo BPM="110">
 			<Note type="A" time="Half"/>

@@ -25,8 +25,8 @@ public class SongParser {
 
 				XmlNodeList xmlNotes = xmlCombo.SelectNodes("Note");
 
-				float fNextNoteTime = 0.0f;
 				float fWhole = combo.fBPM / 240.0f;
+				float fNextNoteTime = 1.0f / fWhole * 2;
 
 				foreach (XmlNode xmlNote in xmlNotes)
 				{

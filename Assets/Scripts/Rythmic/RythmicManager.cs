@@ -14,6 +14,8 @@ public class RythmicManager : MonoBehaviour {
 
 	const float kfTotalAfterPerfectRatio = kfPerfectAfterTiming + kfOkAfterTiming;
 
+	const float kfPerfectFloatTolerance = 0.01f;
+
 	public VisualManager visualManager;
 	public AudioClip tickSound;
 	public AudioClip song;
@@ -31,7 +33,7 @@ public class RythmicManager : MonoBehaviour {
 
 	float fCurrentUpdateFrequency = 0.0f;
 
-	float fNoteAppearDelay = 1.0f;
+	float fNoteAppearDelay = 4.0f;
 
 	bool bGameEnded = false;
 
@@ -79,18 +81,22 @@ public class RythmicManager : MonoBehaviour {
 			if (missRatio <= kfPerfectTiming)
 			{
 				// Wow such awesomely perfect!
+				Debug.Log ("Perfect!");
 			}
 			else if (missRatio <= kfGoodTiming)
 			{
 				// Much good
+				Debug.Log ("Good");
 			}
 			else if (missRatio <= kfOkTiming)
 			{
 				// Very lame
+				Debug.Log ("Ok");
 			}
 			else
 			{
 				// So fail
+				Debug.Log ("Miss");
 			}
 		}
 		else
@@ -101,14 +107,17 @@ public class RythmicManager : MonoBehaviour {
 			if (missRatio <= kfPerfectAfterTiming)
 			{
 				// Wow such awesomely perfect!
+				Debug.Log ("Perfect!");
 			}
 			else if (missRatio <= kfOkAfterTiming)
 			{
 				// Very lame
+				Debug.Log ("Ok");
 			}
 			else
 			{
 				// So fail
+				Debug.Log ("Miss");
 			}
 		}
 
@@ -146,6 +155,9 @@ public class RythmicManager : MonoBehaviour {
 		if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
 			return;
 
+		if (fComboTimer < 0.0f)
+			return;
+
 		// Make notes appear
 		while ((currentCombo.notes.Count > 0) &&
 		       (fComboTimer >= currentCombo.notes[0].fTime - fNoteAppearDelay))
@@ -153,7 +165,9 @@ public class RythmicManager : MonoBehaviour {
 			if (!currentCombo.notes[0].sType.Equals("Rest"))
 			{
 				// Appear
-				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, fNoteAppearDelay);
+				float delay = fComboTimer - (currentCombo.notes[0].fTime - fNoteAppearDelay);
+
+				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, fNoteAppearDelay - delay);
 				visibleNotes.Add (currentCombo.notes[0]);
 			}
 			
@@ -172,7 +186,7 @@ public class RythmicManager : MonoBehaviour {
 			}
 			else if (!visibleNotes[0].sType.Equals("Rest") &&
 			         !visibleNotes[0].bPerfectTimePassed &&
-			         fComboTimer >= visibleNotes[0].fTime)
+			         fComboTimer >= visibleNotes[0].fTime - kfPerfectFloatTolerance)
 			{
 				// Perfect timing
 				visualManager.DisplayNotePerfectTiming(visibleNotes[0], fNoteAppearDelay * kfTotalAfterPerfectRatio);
@@ -206,7 +220,7 @@ public class RythmicManager : MonoBehaviour {
 		}
 
 		fStepTimer = 0.0f;
-		fComboTimer = -2.0f * (60 / currentCombo.fBPM); // Pro hack!
+		fComboTimer = 0.0f;//-2.0f * (60 / currentCombo.fBPM); // Pro hack!
 		fCurrentUpdateFrequency = (60 / currentCombo.fBPM) * kStepFrequency;
 	}
 }
