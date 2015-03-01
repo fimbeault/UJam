@@ -13,7 +13,9 @@ public class VisualManager : MonoBehaviour
 
     public ButtonRenderer _ButtonRendererPrefab;
 
-    public List<DisplayedNoteData> mDisplayedNoteDataList;
+    public List<CharacterRenderer> _CharacterRendererList;
+
+    private List<DisplayedNoteData> mDisplayedNoteDataList;
 
 	// Use this for initialization
 	void Start ()
@@ -62,13 +64,21 @@ public class VisualManager : MonoBehaviour
             }
 
             rendererTransform.position += velocity;
-
-            if (Vector3.Distance(rendererTransform.position, displayedNoteData.OriginalPosition) >= _ButtonTravelDistance)
-            {
-                displayedNoteData.DoUpdatePosition = false;
-                displayedNoteData.Renderer.PlayFadeOut();
-            }
         }
+    }
+
+    public void DisplayNotePerfectTiming(Note aNote, float aRemainingLifetime)
+    {
+        DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
+
+        if (displayedNoteData == null)
+        {
+            Debug.LogError("VisualManager.DisplayNotePerfectTiming :: Tried to display perfect timing on a note that isn't registered");
+            return;
+        }
+
+        displayedNoteData.DoUpdatePosition = false;
+        displayedNoteData.Renderer.PlayFadeOut(aRemainingLifetime);
     }
 
     public void SpawnNote(Note aNote, EPlayerId aPlayerId, float aTimeTotravel)
@@ -96,15 +106,29 @@ public class VisualManager : MonoBehaviour
 
     public void DestroyNote(Note aNote)
     {
+        DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
+
+        if (displayedNoteData == null)
+        {
+            Debug.LogError("VisualManager.DestroyNote :: Tried to delete a note that isn't registered");
+            return;
+        }
+
+        Destroy(displayedNoteData.Renderer.gameObject);
+        mDisplayedNoteDataList.Remove(displayedNoteData);
+    }
+
+    private DisplayedNoteData GetDisplayedNoteDataByNote(Note aNote)
+    {
         foreach (DisplayedNoteData displayedNoteData in mDisplayedNoteDataList)
         {
             if (displayedNoteData.Note == aNote)
             {
-                Destroy(displayedNoteData.Renderer.gameObject);
-                mDisplayedNoteDataList.Remove(displayedNoteData);
-                return;
+                return displayedNoteData;
             }
         }
+
+        return null;
     }
 }
 

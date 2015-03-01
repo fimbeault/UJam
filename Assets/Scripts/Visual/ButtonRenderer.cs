@@ -6,12 +6,13 @@ public class ButtonRenderer : MonoBehaviour
 {
     public List<Sprite> _SpriteList;
     public float _FadeInSpeed;
-    public float _FadeOutSpeed;
 
     private SpriteRenderer mMySpriteRenderer;
 
     private bool mFadingIn;
     private bool mFadingOut;
+    private float mFadeOutTimeRemaining;
+    private float mFadeOutTimeTotal;
 
 	// Use this for initialization
 	void Awake ()
@@ -33,7 +34,8 @@ public class ButtonRenderer : MonoBehaviour
 
         if (mFadingOut)
         {
-            mMySpriteRenderer.color -= new Color(0f, 0f, 0f, _FadeOutSpeed);
+            mFadeOutTimeRemaining -= Time.deltaTime;
+            mMySpriteRenderer.color -= new Color(0f, 0f, 0f, (1 / mFadeOutTimeTotal * mFadeOutTimeRemaining));
 
             if (mMySpriteRenderer.color.a <= 0)
             {
@@ -53,9 +55,11 @@ public class ButtonRenderer : MonoBehaviour
         mFadingIn = true;
     }
 
-    public void PlayFadeOut()
+    public void PlayFadeOut(float aTimeElapsedRemaining)
     {
         mMySpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         mFadingOut = true;
+        mFadeOutTimeRemaining = aTimeElapsedRemaining;
+        mFadeOutTimeTotal = aTimeElapsedRemaining;
     }
 }
