@@ -33,7 +33,7 @@ public class RythmicManager : MonoBehaviour {
 
 	float fCurrentUpdateFrequency = 0.0f;
 
-	float fNoteAppearDelay = 4.0f;
+	float fNoteAppearDelay = 3.0f;
 
 	bool bGameEnded = false;
 

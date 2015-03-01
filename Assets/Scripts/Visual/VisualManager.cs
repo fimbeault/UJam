@@ -18,6 +18,8 @@ public class VisualManager : MonoBehaviour
     public List<CharacterRenderer> _P1CharacterRendererList;
     public List<CharacterRenderer> _P2CharacterRendererList;
 
+    public List<Vector3> _FeedbackOffsets;
+
     private List<DisplayedNoteData> mDisplayedNoteDataList;
 
 	// Use this for initialization
@@ -146,12 +148,11 @@ public class VisualManager : MonoBehaviour
 
     public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType)
     {
+        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
         DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
 
-        FeedbackRenderer feedbackRenderer = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
-        feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position;
-
-        EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
+        FeedbackRenderer feedbackRenderer   = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
+        feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position + _FeedbackOffsets[axisData.AxisDirection];
 
         if (aFeedbackType != ETimingFeedbackType.MISS)
         {
