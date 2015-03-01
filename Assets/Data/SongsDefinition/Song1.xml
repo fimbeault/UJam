@@ -13,6 +13,17 @@ Notes time :
 <Song>
 	<Section startTime="0" endTime="3" BPM="110">
 	</Section>
+	<Section startTime="3" endTime="90" BPM="110">
+	</Section>
+	<Section startTime="90" endTime="122" BPM="135">
+	</Section>
+	<Section startTime="122" endTime="183" BPM="110">
+	</Section>
+	<Section startTime="183" endTime="254" BPM="150">
+	</Section>
+	<Section startTime="254" endTime="259" BPM="150">
+	</Section>
+	<!--
 	<Section startTime="3" endTime="320" BPM="110">
 		<Combo>
 			<Note type="A" time="Half"/>
@@ -160,4 +171,5 @@ Notes time :
 			<Note type="A" time="Quarter"/>
 		</Combo>
 	</Section>
+		-->
 </Song>
