@@ -15,6 +15,8 @@ public class ScoreIndicator : MonoBehaviour {
 	float fCurrentScore = 0.0f;
 	float fYPos = fYMin;
 
+	public uint uiCurrentCombo;
+
 	public void Update()
 	{
 		if (lastUpdateTime == 0.0f)

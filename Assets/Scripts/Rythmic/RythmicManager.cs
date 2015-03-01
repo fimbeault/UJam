@@ -221,7 +221,7 @@ public class RythmicManager : MonoBehaviour {
 					gameManager.OnStartNextCombo();
 			}
 
-			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
+			//gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
 		}
 	}
 

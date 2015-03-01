@@ -38,6 +38,16 @@ public class VisualManager : MonoBehaviour
         MoveDisplayedNotes(Time.deltaTime);
 	}
 
+	private void AddCombo()
+	{
+		_CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id].uiCurrentCombo++;
+	}
+
+	private void ResetCombo()
+	{
+		_CrowdIndicatorList[mGameManager.CurrentActivePlayer.Id].uiCurrentCombo = 0;
+	}
+
     private void MoveDisplayedNotes(float aTimeElapsed)
     {
         foreach (DisplayedNoteData displayedNoteData in mDisplayedNoteDataList)
@@ -162,17 +172,16 @@ public class VisualManager : MonoBehaviour
         FeedbackRenderer feedbackRenderer   = Instantiate(_FeedbackRendererPrefab) as FeedbackRenderer;
         feedbackRenderer.transform.position = displayedNoteData.Renderer.transform.position + _FeedbackOffsets[axisData.AxisDirection];
 
-        if (aFeedbackType != ETimingFeedbackType.MISS)
-        {
-            if (displayedNoteData.AssociatedPlayer == EPlayerId.PLAYER_ONE)
-            {
-                _P1CharacterRendererList[axisData.AxisDirection].PlayWinAnim();
-            }
-            else
-            {
-                _P2CharacterRendererList[0].PlayWinAnim();
-            }
-        }
+        if (aFeedbackType != ETimingFeedbackType.MISS) {
+			AddCombo ();
+
+			if (displayedNoteData.AssociatedPlayer == EPlayerId.PLAYER_ONE) {
+				_P1CharacterRendererList [axisData.AxisDirection].PlayWinAnim ();
+			} else {
+				_P2CharacterRendererList [0].PlayWinAnim ();
+			}
+		} else
+			ResetCombo ();
         
         feedbackRenderer.DisplayFeedbackType(aFeedbackType);
     }
