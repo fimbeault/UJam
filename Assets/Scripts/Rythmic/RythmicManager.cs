@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class RythmicManager : MonoBehaviour {
 
+	const float kfSongTime = 10.0f;
+
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
 	const float kfPerfectAfterTiming = 0.05f;
@@ -122,9 +124,14 @@ public class RythmicManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-	{/*
+	{
+		if (fSongTimer >= kfSongTime)
+		{
+			bGameEnded = true;
+		}
+
 		if (bGameEnded)
-			return;*/
+			return;
 
 		fSongTimer += Time.deltaTime;
 
