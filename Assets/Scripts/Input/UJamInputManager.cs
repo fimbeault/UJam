@@ -50,7 +50,7 @@ public class UJamInputManager : MonoBehaviour
         _GameManager.OnAxisChanged(aPlayerId, aAxisData, aIsAxisActive);
     }
 
-    private bool IsAxisActive(EAxisData aAxisData, EPlayerId aPlayerId)
+    public static bool IsAxisActive(EAxisData aAxisData, EPlayerId aPlayerId)
     {
         string axisFullInputName = aAxisData.GetFullInputName(aPlayerId);
 

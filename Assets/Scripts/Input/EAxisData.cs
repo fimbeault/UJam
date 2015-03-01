@@ -33,6 +33,9 @@ public class EAxisData
     private const string X_AXIS_NAME = "L_XAxis";
     private const string Y_AXIS_NAME = "L_YAxis";
 
+    private const string START_NAME = "Start";
+
+    public const int INVALID_DIRECTION = -1;
     public const int DIRECTION_UP = 0;
     public const int DIRECTION_RIGHT = 1;
     public const int DIRECTION_DOWN = 2;
@@ -47,6 +50,8 @@ public class EAxisData
     public static EAxisData DOWN = new EAxisData("D", Y_AXIS_NAME, AXIS_MINIMAL_INPUT, DIRECTION_DOWN);
     public static EAxisData LEFT = new EAxisData("L", X_AXIS_NAME, -AXIS_MINIMAL_INPUT, DIRECTION_LEFT);
     public static EAxisData RIGHT = new EAxisData("R", X_AXIS_NAME, AXIS_MINIMAL_INPUT, DIRECTION_RIGHT);
+
+    public static EAxisData START = new EAxisData("S", START_NAME, BUTTON_MINIMAL_INPUT, INVALID_DIRECTION);
 
 
     public EAxisData(string aAxisName, string aAxisInputString, float aMinimalValue, int aAxisDirection)
