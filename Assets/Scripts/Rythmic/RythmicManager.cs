@@ -81,19 +81,19 @@ public class RythmicManager : MonoBehaviour {
 
 			if (missRatio <= kfPerfectTiming)
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT, 100);
 			}
 			else if (missRatio <= kfGoodTiming)
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.GOOD);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.GOOD, 75);
 			}
 			else if (missRatio <= kfOkTiming)
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK, 50);
 			}
 			else
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS, 0);
 			}
 		}
 		else
@@ -103,15 +103,15 @@ public class RythmicManager : MonoBehaviour {
 
 			if (missRatio <= kfPerfectAfterTiming)
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.PERFECT, 100);
 			}
 			else if (missRatio <= kfOkAfterTiming)
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.OK, 50);
 			}
 			else
 			{
-                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS);
+                visualManager.DisplayFeedback(processedNote, ETimingFeedbackType.MISS, 0);
 			}
 		}
 
@@ -174,7 +174,7 @@ public class RythmicManager : MonoBehaviour {
 			if (fComboTimer >= visibleNotes[0].fTime + fNoteAppearDelay * kfTotalAfterPerfectRatio)
 			{
 				// Disapear
-                visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS);
+                visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS, 0);
 				visualManager.DestroyNote(visibleNotes[0]);
 				
 				visibleNotes.RemoveAt(0);

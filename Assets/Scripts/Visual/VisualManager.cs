@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class VisualManager : MonoBehaviour
 {
-    public List<SpriteRenderer> _CrowdIndicatorList;
+	public GameManager mGameManager;
+
+    public List<ScoreIndicator> _CrowdIndicatorList;
 
     public List<Transform> _P1SpawnPositionsList;
     public List<Transform> _P2SpawnPositionsList;
@@ -146,8 +148,11 @@ public class VisualManager : MonoBehaviour
         mDisplayedNoteDataList.Remove(displayedNoteData);
     }
 
-    public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType)
+    public void DisplayFeedback(Note aNote, ETimingFeedbackType aFeedbackType, float _scoreToAdd)
     {
+		if (mGameManager != null)
+			_CrowdIndicatorList [mGameManager.CurrentActivePlayer.Id].AddScore (_scoreToAdd);
+
         EAxisData axisData = EAxisData.GetAxisByName(aNote.sType);
         DisplayedNoteData displayedNoteData = GetDisplayedNoteDataByNote(aNote);
 
