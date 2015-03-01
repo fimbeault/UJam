@@ -197,17 +197,14 @@ public class RythmicManager : MonoBehaviour {
 		{
 			// Get Next Combo
             if (currentCombo == null || currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
-                StartNextCombo();
+				GetNextCombo();
+
+			if (currentCombo != null && currentCombo.notes.Count > 0)
+				gameManager.OnStartNextCombo();
 
 			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
 		}
 	}
-
-    private void StartNextCombo()
-    {
-        gameManager.OnStartNextCombo();
-        GetNextCombo();
-    }
 
 	void GetNextCombo()
 	{
