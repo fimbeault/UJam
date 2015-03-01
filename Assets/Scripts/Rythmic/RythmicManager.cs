@@ -92,7 +92,7 @@ public class RythmicManager : MonoBehaviour {
 		fStepTimer += Time.deltaTime;
 		if (fStepTimer >= fCurrentUpdateFrequency)
 		{
-			fComboTimer += fStepTimer;
+			fComboTimer += fCurrentUpdateFrequency;
 
 			if (uiStepCount == kuiStepGranularity)
 				uiStepCount = 0;
@@ -100,7 +100,7 @@ public class RythmicManager : MonoBehaviour {
 			SongStep();
 			uiStepCount++;
 
-			fStepTimer = 0.0f;
+			fStepTimer -= fCurrentUpdateFrequency;
 		}
 	}
 
