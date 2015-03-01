@@ -27,13 +27,25 @@ public class RythmicManager : MonoBehaviour {
 
 	float fCurrentUpdateFrequency = 0.0f;
 
-	float kfNoteAppearDelay = 0.4f;
+	float fNoteAppearDelay = 1.0f;
 
 	bool bGameEnded = false;
+
+	public float CurrentUpdateFrequency {
+		get
+		{
+			return fCurrentUpdateFrequency;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
 		GetNextCombo ();
+
+		gameObject.GetComponent<AudioSource>().PlayOneShot(song);
+		bSongStarted = true;
+
+		fStepTimer = fCurrentUpdateFrequency;
 	}
 
 	public void ProcessInput(string _sInput)
@@ -56,7 +68,7 @@ public class RythmicManager : MonoBehaviour {
 		}
 
 		float noteDelta = Mathf.Abs(processedNote.fTime - fComboTimer);
-		float missRatio = noteDelta / kfNoteAppearDelay;
+		float missRatio = noteDelta / fNoteAppearDelay;
 
 		if (missRatio <= kfPerfectTiming)
 		{
@@ -82,9 +94,9 @@ public class RythmicManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-	{
+	{/*
 		if (bGameEnded)
-			return;
+			return;*/
 
 		fSongTimer += Time.deltaTime;
 
@@ -102,50 +114,47 @@ public class RythmicManager : MonoBehaviour {
 
 			fStepTimer -= fCurrentUpdateFrequency;
 		}
-	}
 
-	void SongStep()
-	{
-		if (!bSongStarted)
-		{
-			gameObject.GetComponent<AudioSource>().PlayOneShot(song);
-			bSongStarted = true;
-		}
-
-		if (uiStepCount == 0)
-		{
-			// Get Next Combo
-			if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
-				GetNextCombo ();
-
-			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
-		}
+		if (currentCombo == null)
+			return;
 
 		if (currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
 			return;
 
 		// Make notes appear
 		while ((currentCombo.notes.Count > 0) &&
-		       (fComboTimer >= currentCombo.notes[0].fTime - kfNoteAppearDelay))
+		       (fComboTimer >= currentCombo.notes[0].fTime - fNoteAppearDelay))
 		{
 			if (!currentCombo.notes[0].sType.Equals("Rest"))
 			{
 				// Appear
-				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, kfNoteAppearDelay * 2);
+				visualManager.SpawnNote(currentCombo.notes[0], EPlayerId.PLAYER_ONE, fNoteAppearDelay);
 				visibleNotes.Add (currentCombo.notes[0]);
 			}
-
+			
 			currentCombo.notes.RemoveAt (0);
 		}
-
+		
 		// Check missed notes
 		while ((visibleNotes.Count > 0) &&
-		       (fComboTimer > visibleNotes[0].fTime + kfNoteAppearDelay))
+		       (fComboTimer > visibleNotes[0].fTime))
 		{
 			// Disapear
 			visualManager.DestroyNote(visibleNotes[0]);
-
+			
 			visibleNotes.RemoveAt(0);
+		}
+	}
+
+	void SongStep()
+	{
+		if (uiStepCount == 0)
+		{
+			// Get Next Combo
+			if (currentCombo != null && currentCombo.notes.Count == 0 && visibleNotes.Count == 0)
+				GetNextCombo ();
+
+			gameObject.GetComponent<AudioSource>().PlayOneShot(tickSound);
 		}
 	}
 
