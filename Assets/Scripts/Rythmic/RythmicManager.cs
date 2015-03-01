@@ -31,6 +31,13 @@ public class RythmicManager : MonoBehaviour {
 
 	bool bGameEnded = false;
 
+	public float CurrentUpdateFrequency {
+		get
+		{
+			return fCurrentUpdateFrequency;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		GetNextCombo ();
