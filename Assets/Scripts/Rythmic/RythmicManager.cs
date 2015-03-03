@@ -6,7 +6,7 @@ public class RythmicManager : MonoBehaviour {
 
 	public cameraShake camShake;
 
-	const float kfSongTime = 180.0f;
+	const float kfSongTime = 264.0f;
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
@@ -145,6 +145,9 @@ public class RythmicManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!bGetRekt && fSongTimer >= 179.0f)
+			bGetRekt = true;
+
 		if (bGameEnded)
 			return;
 

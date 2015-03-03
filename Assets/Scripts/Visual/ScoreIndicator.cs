@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ScoreIndicator : MonoBehaviour {
 
-	const float fScoreMax = 10000.0f;
+	const float fScoreMax = 40000.0f;
 
 	const float fYMin = -5.0f;
 	const float fYAwsomeZoneStart = 3.3f;
