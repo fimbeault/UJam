@@ -5,8 +5,13 @@ using System.Collections.Generic;
 public class RythmicManager : MonoBehaviour {
 
 	public cameraShake camShake;
+    public BraceYourselfUI _BraceYourselfUI;
 
+<<<<<<< HEAD
 	const float kfSongTime = 264.0f;
+=======
+	const float kfSongTime = 240.0F;
+>>>>>>> origin/master
 
 	const uint kuiStepGranularity = 16;
 	const float kStepFrequency = 1.0f / kuiStepGranularity;
@@ -51,7 +56,12 @@ public class RythmicManager : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        _BraceYourselfUI.Hide();
+
+        _BraceYourselfUI.Display();
+
 		GetNextCombo ();
 
 		gameObject.GetComponent<AudioSource>().PlayOneShot(song);
