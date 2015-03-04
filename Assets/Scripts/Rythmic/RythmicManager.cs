@@ -68,6 +68,12 @@ public class RythmicManager : MonoBehaviour {
 
 	public void ProcessInput(string _sInput, EPlayerId aPlayerId)
 	{
+		if (gameManager.gameMode == GameManager.GameMode.SinglePlayer &&
+			aPlayerId != EPlayerId.PLAYER_ONE)
+		{
+			return;
+		}
+
 		Note processedNote = null;
 		
 		foreach (Note note in visibleNotes)
@@ -151,7 +157,7 @@ public class RythmicManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!bGetRekt && fSongTimer >= 179.0f)
+		if (gameManager.gameMode != GameManager.GameMode.SinglePlayer && !bGetRekt && fSongTimer >= 179.0f)
 			bGetRekt = true;
 
 		if (bGameEnded)
@@ -207,7 +213,7 @@ public class RythmicManager : MonoBehaviour {
 					visibleNotes.Add (currentCombo.notes[0]);
 				}
 
-				if (bGetRekt)
+				if (bGetRekt && gameManager.gameMode != GameManager.GameMode.SinglePlayer)
 				{
 					gameManager.OnStartNextCombo();
 				}
@@ -254,7 +260,7 @@ public class RythmicManager : MonoBehaviour {
 			{
 				GetNextCombo();
 
-				if (!bGetRekt && currentCombo != null && currentCombo.notes.Count > 0)
+				if (!bGetRekt && currentCombo != null && currentCombo.notes.Count > 0 && gameManager.gameMode != GameManager.GameMode.SinglePlayer)
 					gameManager.OnStartNextCombo();
 			}
 
@@ -283,17 +289,25 @@ public class RythmicManager : MonoBehaviour {
 	{
 		visualManager.DisplayFeedback(visibleNotes[0], ETimingFeedbackType.MISS, 0);
 
-		if (bGetRekt)
-			return;
+		if (gameManager.gameMode == GameManager.GameMode.SinglePlayer)
+		{
+			visualManager.DestroyNote(visibleNotes[0]);
+			visibleNotes.RemoveAt(0);
+		}
+		else
+		{
+			if (bGetRekt)
+				return;
 
-		if (camShake != null)
-			camShake.Shake ();
+			if (camShake != null)
+				camShake.Shake ();
 
-		foreach (Note note in visibleNotes)
-			visualManager.DestroyNote(note);
+			foreach (Note note in visibleNotes)
+				visualManager.DestroyNote (note);
 
-		visibleNotes.Clear ();
-		currentCombo.notes.Clear ();
-		currentCombo = null;
+			visibleNotes.Clear ();
+			currentCombo.notes.Clear ();
+			currentCombo = null;
+		}
 	}
 }

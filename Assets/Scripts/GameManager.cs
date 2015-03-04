@@ -3,6 +3,14 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public enum GameMode
+	{
+		SinglePlayer,
+		Multiplayer
+	}
+
+	public GameMode gameMode = GameMode.SinglePlayer;
+
 	public RythmicManager rythmicManager;
     public VisualManager visualManager;
 
@@ -14,7 +22,10 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        mCurrentPlayerId = EPlayerId.PLAYER_TWO;
+		if (gameMode == GameMode.SinglePlayer)
+			mCurrentPlayerId = EPlayerId.PLAYER_ONE;
+		else
+        	mCurrentPlayerId = EPlayerId.PLAYER_TWO;
 	}
 	
 	// Update is called once per frame
